@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-navbar);
+    color: black;
+    min-height: 100vw;
+    min-width: 280px;
+    padding: 24px;
+}
+
+.navlink {
+    display: flex;
+    align-items: center;
+    width: 232px;
+    height: 42px;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 22.4px;
+}
+.active {
+    font-weight: 700;
+    color: #9854f6;
+    background-color: #e5d5fa;
+}
