@@ -1,0 +1,53 @@
+.wrapper {
+    display: flex;
+    background-color: #FFF; /* Замените на желаемый цвет фона */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .poster {
+    background-color: #F5F5F6;
+    object-fit:contain;
+    width: 119px;
+    height: 170px;
+    margin-right: 20px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .rated {
+    
+  }
+  
+  .movie-card__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff; /* Замените на желаемый цвет текста */
+    margin-bottom: 10px;
+  }
+  
+  .movie-card__release-year {
+    font-size: 16px;
+    color: #fff; /* Замените на желаемый цвет текста */
+    margin-bottom: 5px;
+  }
+  
+  .movie-card__rating {
+    font-size: 20px;
+    color: #fff; /* Замените на желаемый цвет текста */
+    margin-bottom: 10px;
+  }
+  
+  .movie-card__rating-value {
+    font-weight: bold;
+  }
+  
+  .movie-card__genres {
+    font-size: 16px;
+    color: #fff; /* Замените на желаемый цвет текста */
+  }

@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useState, SetStateAction, Dispatch } from 'react'
+import { FC, memo, useMemo, useState } from 'react'
 import {
     Combobox,
     Group,
@@ -14,9 +14,7 @@ import CustomPill from './CustomPill'
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 
 import { colors } from 'src/style/colors'
-import { SelectOption } from 'src/types'
-
-type TypeSetState<T> = Dispatch<SetStateAction<T>>
+import { SelectOption, TypeSetState } from 'src/types'
 
 interface Props {
     disabled?: boolean
@@ -96,8 +94,6 @@ const CustomSelect: FC<Props> = ({
         }, [] as string[])
         return genresKeys
     }, [selectedValues, optionsData])
-
-    console.log(selectedValues)
 
     return (
         <Combobox
