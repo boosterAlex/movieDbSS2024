@@ -28,6 +28,25 @@ export const useGenresQuery = () => {
 }
 
 export const useMoviesQuery = ({ genres = [] }: { genres?: string[] } = {}) => {
+    const { data: genresList } = useGenresQuery()
+
+    const generateGenres = (
+        genresId: number[],
+        genresArr: { id: number; name: string }[]
+    ) => {
+        const genres: string[] = []
+
+        genresId.map((id) => {
+            genresArr.map((genre) => {
+                if (id === genre.id) {
+                    genres.push(genre.name)
+                }
+            })
+        })
+
+        return genres.slice(0, 3)
+    }
+
     const get = () =>
         api.get('/discover/movie', {
             params: {
@@ -35,29 +54,30 @@ export const useMoviesQuery = ({ genres = [] }: { genres?: string[] } = {}) => {
             }
         })
 
-    const results = useQuery({
+    return useQuery({
         queryFn: get,
-        queryKey: ['movies']
+        queryKey: ['movies'],
+        select: ({ data }) => {
+            return (
+                data.results.map((movie: MovieCardData) => {
+                    return {
+                        id: movie.id,
+                        original_title: movie.original_title,
+                        poster_path:
+                            movie.poster_path === null
+                                ? 'src/shared/assets/img/NoPoster.png'
+                                : `${IMG_BASE_URL}${movie.poster_path}`,
+                        release_date: movie.release_date,
+                        vote_average: movie.vote_average,
+                        vote_count: movie.vote_count,
+                        genre_ids: movie.genre_ids,
+                        genresStrList: generateGenres(
+                            movie.genre_ids,
+                            genresList
+                        )
+                    }
+                }) || []
+            )
+        }
     })
-
-    const tranformedResults = {
-        ...results,
-        data:
-            results?.data?.data.results.map((movie: MovieCardData) => {
-                return {
-                    id: movie.id,
-                    original_title: movie.original_title,
-                    poster_path:
-                        movie.poster_path === null
-                            ? 'src/shared/assets/img/NoPoster.png'
-                            : `${IMG_BASE_URL}${movie.poster_path}`,
-                    release_date: movie.release_date,
-                    vote_average: movie.vote_average,
-                    vote_count: movie.vote_count,
-                    genre_ids: movie.genre_ids
-                }
-            }) || []
-    }
-
-    return tranformedResults
 }
