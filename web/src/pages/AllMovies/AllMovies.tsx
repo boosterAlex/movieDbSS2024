@@ -1,7 +1,7 @@
 import { FiltersBlock } from 'src/components/FiltersBlock'
 import { MovieList } from 'src/components/MoviesList'
 
-const AboutMovie = () => {
+const AllMovies = () => {
     return (
         <>
             <FiltersBlock />
@@ -10,4 +10,4 @@ const AboutMovie = () => {
     )
 }
 
-export default AboutMovie
+export default AllMovies

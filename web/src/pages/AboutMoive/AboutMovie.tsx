@@ -17,8 +17,6 @@ const AboutMovie = () => {
 
     const { id } = useParams()
 
-    // console.log(data)
-
     useEffect(() => {
         fetch(
             `https://api.themoviedb.org/3/movie/${id}?language=en-US`,

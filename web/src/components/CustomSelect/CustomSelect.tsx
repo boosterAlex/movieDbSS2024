@@ -6,14 +6,14 @@ import {
     MantineStyleProp,
     Pill,
     PillsInput,
-    useCombobox
+    useCombobox,
+    useMantineTheme
 } from '@mantine/core'
 
 import CustomPill from './CustomPill'
 
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 
-import { colors } from 'src/style/colors'
 import { SelectOption, TypeSetState } from 'src/types'
 
 interface Props {
@@ -35,6 +35,8 @@ const CustomSelect: FC<Props> = ({
     selectedValues,
     setSelectedValues
 }) => {
+    const theme = useMantineTheme()
+
     const combobox = useCombobox({
         onDropdownClose: () => {
             combobox.resetSelectedOption()
@@ -79,9 +81,9 @@ const CustomSelect: FC<Props> = ({
     })
     const renderIcon = () => {
         return isOpen ? (
-            <IconChevronUp color={colors.blue[1]} />
+            <IconChevronUp color={theme.colors.purple[5]} />
         ) : (
-            <IconChevronDown color={colors.gray[4]} />
+            <IconChevronDown color={theme.colors.gray[5]} />
         )
     }
 

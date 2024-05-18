@@ -1,3 +1,4 @@
+import { Title } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { CustomSelect } from 'src/components/CustomSelect'
 
@@ -18,6 +19,9 @@ const FiltersBlock = () => {
 
     return (
         <>
+            <Title fz="32px" fw="700" lh="150%" lts="2">
+                Movies
+            </Title>
             <CustomSelect
                 disabled={isLoading || isError}
                 style={{ width: '300px' }}
