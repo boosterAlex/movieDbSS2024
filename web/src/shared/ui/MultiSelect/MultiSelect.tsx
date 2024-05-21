@@ -2,8 +2,6 @@ import { FC, memo, useMemo, useState } from 'react'
 import {
     Combobox,
     Group,
-    Input,
-    MantineStyleProp,
     Pill,
     PillsInput,
     useCombobox,
@@ -14,28 +12,25 @@ import CustomPill from './CustomPill'
 
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 
-import { SelectOption, TypeSetState } from 'src/types'
+import { SelectOption } from 'src/types'
 
 interface Props {
-    disabled?: boolean
-    style: MantineStyleProp
     label: string
-    isMulti?: boolean
-    optionsData: SelectOption[]
+    options: SelectOption[]
     selectedValues: string[]
-    setSelectedValues: TypeSetState<string[]>
-    placeholder: string
+    disabled?: boolean
+
+    onChange: (value: string) => void
+    onRemove: (value: string) => void
 }
 
-const CustomSelect: FC<Props> = ({
+const MultiSelect: FC<Props> = ({
     disabled = false,
-    isMulti = false,
-    style,
     label,
-    optionsData,
+    options: optionsData,
     selectedValues,
-    setSelectedValues,
-    placeholder
+    onRemove,
+    onChange
 }) => {
     const theme = useMantineTheme()
 
@@ -54,26 +49,12 @@ const CustomSelect: FC<Props> = ({
     })
 
     const handleValueSelect = (selected: string) => {
-        if (isMulti) {
-            if (
-                selectedValues.length >= 3 ||
-                selectedValues.includes(selected)
-            ) {
-                return
-            }
-            setSelectedValues((current: string[]) => [...current, selected])
-        } else {
-            if (selected !== selectedValues[0]) {
-                setSelectedValues([selected])
-            }
-            combobox.closeDropdown()
+        if (selectedValues.length >= 3 || selectedValues.includes(selected)) {
+            return
         }
-    }
 
-    const handleValueRemove = (selectedValues: string) =>
-        setSelectedValues((current: string[]) =>
-            current.filter((v) => v !== selectedValues)
-        )
+        onChange(selected)
+    }
 
     const pillsValue = useMemo(() => {
         const genresKeys = optionsData.reduce((acc, item) => {
@@ -98,7 +79,7 @@ const CustomSelect: FC<Props> = ({
                     label={label}
                     pointer
                     onClick={() => combobox.toggleDropdown()}
-                    style={style}
+                    style={{ width: '283.67px' }}
                     rightSectionPointerEvents="none"
                     rightSection={
                         isOpen ? (
@@ -109,26 +90,20 @@ const CustomSelect: FC<Props> = ({
                     }
                 >
                     <Pill.Group>
-                        {pillsValue.length > 0 ? (
-                            pillsValue.map((item: string, index: number) => (
-                                <CustomPill
-                                    isLastIndex={
-                                        index === pillsValue.length - 1
-                                    }
-                                    key={item}
-                                    value={item}
-                                    onRemove={() =>
-                                        handleValueRemove(
-                                            selectedValues[
-                                                selectedValues.length - 1
-                                            ]
-                                        )
-                                    }
-                                />
-                            ))
-                        ) : (
-                            <Input.Placeholder>{placeholder}</Input.Placeholder>
-                        )}
+                        {pillsValue.map((item: string, index: number) => (
+                            <CustomPill
+                                isLastIndex={index === pillsValue.length - 1}
+                                key={item}
+                                value={item}
+                                onRemove={() =>
+                                    onRemove?.(
+                                        selectedValues[
+                                            selectedValues.length - 1
+                                        ]
+                                    )
+                                }
+                            />
+                        ))}
 
                         <Combobox.EventsTarget>
                             <PillsInput.Field
@@ -137,7 +112,7 @@ const CustomSelect: FC<Props> = ({
                                 onKeyDown={(event) => {
                                     if (event.key === 'Backspace') {
                                         event.preventDefault()
-                                        handleValueRemove(
+                                        onRemove?.(
                                             selectedValues[
                                                 selectedValues.length - 1
                                             ]
@@ -153,10 +128,7 @@ const CustomSelect: FC<Props> = ({
             <Combobox.Dropdown>
                 <Combobox.Options>
                     {optionsData?.map((item) => (
-                        <Combobox.Option
-                            value={item?.id?.toString()}
-                            key={item.id}
-                        >
+                        <Combobox.Option value={String(item?.id)} key={item.id}>
                             <Group gap="sm">
                                 <Group gap={7}>
                                     <span>{item.name}</span>
@@ -170,6 +142,6 @@ const CustomSelect: FC<Props> = ({
     )
 }
 
-const MemoCustomSelect = memo(CustomSelect)
+const MemoCustomMultiSelect = memo(MultiSelect)
 
-export default MemoCustomSelect
+export default MemoCustomMultiSelect

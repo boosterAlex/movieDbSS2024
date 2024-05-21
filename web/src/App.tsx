@@ -7,10 +7,10 @@ import { useEffect } from 'react'
 
 function App() {
     useEffect(() => {
-        const localStorageData = localStorage.getItem('rated')
+        const localStorageData = localStorage.getItem('ratedMovies')
 
         if (!localStorageData) {
-            localStorage.setItem('rated', JSON.stringify([]))
+            localStorage.setItem('ratedMovies', JSON.stringify([]))
         }
     }, [])
 

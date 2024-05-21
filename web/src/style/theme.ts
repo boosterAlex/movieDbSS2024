@@ -1,10 +1,6 @@
 import { createTheme } from '@mantine/core'
 
 const theme = createTheme({
-    white: '#FFFFFF',
-
-    black: '#232134',
-
     colors: {
         gray: [
             '#F1F1F1',
@@ -33,31 +29,7 @@ const theme = createTheme({
         ]
     },
 
-    primaryColor: 'purple',
-
-    fontSizes: {
-        xs: '0.875rem',
-        sm: '1rem',
-        md: '1.25rem',
-        lg: '1.5rem',
-        xl: '2rem'
-    },
-
-    spacing: {
-        xs: '0.25rem',
-        sm: '0.375rem',
-        md: '0.5rem',
-        xmd: '0.625rem',
-        lg: '0.75rem',
-        xlg: '1rem',
-        xl: '1.25rem',
-        xxl: '1.5rem'
-    },
-
-    radius: {
-        lg: '0.75rem',
-        xl: '1rem'
-    }
+    primaryColor: 'purple'
 })
 
 export default theme

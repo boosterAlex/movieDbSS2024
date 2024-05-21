@@ -1,11 +1,11 @@
 import { Button } from '@mantine/core'
+import { Link } from 'react-router-dom'
 
 import { NotFound } from 'src/shared/assets/img'
-import { Logo } from 'src/app/Layout/Navbar/Logo'
+import { ROUTES } from 'src/shared/consts'
+import { Logo } from 'src/shared/ui'
 
 import styles from './Page404.module.scss'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'src/shared/consts'
 
 const Page404 = () => {
     return (

@@ -1,19 +1,21 @@
 import { generatePath, Link } from 'react-router-dom'
+import { useDisclosure } from '@mantine/hooks'
+import { useEffect, useState } from 'react'
 
 import { ROUTES } from 'src/shared/consts'
 import { MovieCardData } from 'src/types'
+import RatingIcon from 'src/shared/assets/icon/rating'
 
 import styles from './MovieCard.module.scss'
-import RatingIcon from 'src/shared/assets/icon/rating'
-import { useEffect, useState } from 'react'
-import { RatedModal } from 'src/components/RatedModal'
-import { useDisclosure } from '@mantine/hooks'
+
+import { RatedModal } from './RatedModal'
 
 interface Props {
     currentMovie: MovieCardData
+    handleRemoveFromFavourite?: (movies: MovieCardData[]) => void
 }
 
-const MovieCard = ({ currentMovie }: Props) => {
+const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
     const [ratingValue, setRatingValue] = useState<null | number>(null)
     const [opened, { open, close }] = useDisclosure(false)
 
@@ -28,7 +30,9 @@ const MovieCard = ({ currentMovie }: Props) => {
     } = currentMovie
 
     useEffect(() => {
-        const ratedMovies = JSON.parse(localStorage.getItem('rated') as string)
+        const ratedMovies = JSON.parse(
+            localStorage.getItem('ratedMovies') as string
+        )
         const findedMovie = ratedMovies.find((movie: MovieCardData) => {
             return movie.id === id
         })
@@ -39,7 +43,9 @@ const MovieCard = ({ currentMovie }: Props) => {
     }, [])
 
     const handleAddRating = (selectedRating: number) => {
-        const ratedMovies = JSON.parse(localStorage.getItem('rated') as string)
+        const ratedMovies = JSON.parse(
+            localStorage.getItem('ratedMovies') as string
+        )
         const existedMovieIndex = ratedMovies.findIndex(
             (movie: MovieCardData) => {
                 return movie.id === currentMovie.id
@@ -51,10 +57,10 @@ const MovieCard = ({ currentMovie }: Props) => {
                 ...ratedMovies[existedMovieIndex],
                 personalRating: selectedRating
             }
-            localStorage.setItem('rated', JSON.stringify(ratedMovies))
+            localStorage.setItem('ratedMovies', JSON.stringify(ratedMovies))
         } else {
             localStorage.setItem(
-                'rated',
+                'ratedMovies',
                 JSON.stringify(
                     ratedMovies.concat({
                         ...currentMovie,
@@ -67,24 +73,21 @@ const MovieCard = ({ currentMovie }: Props) => {
         setRatingValue(selectedRating)
     }
 
-    const handleRemove = () => {
+    const onRemoveFromFavourite = () => {
         const favouritesMovies = JSON.parse(
-            localStorage.getItem('rated') as string
+            localStorage.getItem('ratedMovies') as string
         )
 
         if (
-            favouritesMovies.find((movie: MovieCardData) => {
-                return movie.id === currentMovie.id
-            })
-        ) {
-            localStorage.setItem(
-                'rated',
-                JSON.stringify(
-                    favouritesMovies.filter(
-                        (movie: MovieCardData) => movie.id !== currentMovie.id
-                    )
-                )
+            favouritesMovies.find(
+                (movie: MovieCardData) => movie.id === currentMovie.id
             )
+        ) {
+            const filtered = favouritesMovies.filter(
+                (movie: MovieCardData) => movie.id !== currentMovie.id
+            )
+            localStorage.setItem('ratedMovies', JSON.stringify(filtered))
+            handleRemoveFromFavourite?.(filtered)
             setRatingValue(null)
         }
     }
@@ -143,7 +146,7 @@ const MovieCard = ({ currentMovie }: Props) => {
                 opened={opened}
                 close={close}
                 onSave={handleAddRating}
-                onRemove={handleRemove}
+                onRemove={onRemoveFromFavourite}
             />
         </div>
     )

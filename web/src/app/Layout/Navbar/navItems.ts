@@ -1,11 +1,6 @@
 import { ROUTES } from 'src/shared/consts'
 
-interface Menu {
-    link: string
-    label: string
-}
-
-export const data: Menu[] = [
+export const navItems = [
     {
         link: ROUTES.MAIN,
         label: 'Movies'

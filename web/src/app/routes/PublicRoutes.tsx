@@ -7,7 +7,7 @@ import { Layout } from 'src/app/Layout'
 import { Page404 } from 'src/pages/Page404'
 import { AboutMovie, RatedMovies } from 'src/pages'
 import { AllMovies } from 'src/pages/AllMovies'
-import { ScrollToTop } from 'src/components/ScrollToTop'
+import { ScrollToTop } from 'src/shared/ui'
 
 const PublicRoutes = () => {
     return (

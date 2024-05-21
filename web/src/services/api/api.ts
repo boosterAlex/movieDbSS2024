@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { BASE_URL, IMG_BASE_URL } from './constants'
-import { MovieCardData } from 'src/types'
+import { MovieCardData, SelectOption } from 'src/types'
 
 const api = axios.create({
     baseURL: BASE_URL
@@ -26,9 +26,15 @@ export const useGenresQuery = () => {
 
 export const useMoviesQuery = ({
     genres,
-    releaseYear = []
-}: { genres?: string[]; releaseYear?: string[] } = {}) => {
-    const { data: genresList } = useGenresQuery()
+    releaseYear = '',
+    activePage = 1,
+    genresList
+}: {
+    genres?: string[]
+    releaseYear?: string
+    activePage?: number
+    genresList: SelectOption[]
+}) => {
     const generateGenres = (
         genresId: number[],
         genresArr: { id: number; name: string }[]
@@ -51,11 +57,12 @@ export const useMoviesQuery = ({
             params: {
                 ...(genres?.length && { with_genres: genres.join(',') }),
                 ...(releaseYear.length && {
-                    'primary_release_date.gte': `${releaseYear.join()}-01-01`
+                    'primary_release_date.gte': `${releaseYear}-01-01`
                 }),
                 ...(releaseYear.length && {
-                    'primary_release_date.lte': `${releaseYear.join()}-12-31`
-                })
+                    'primary_release_date.lte': `${releaseYear}-12-31`
+                }),
+                ...(activePage && { page: activePage.toString() })
             }
         })
 
