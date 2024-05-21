@@ -9,6 +9,8 @@ import { Spinner } from 'src/shared/ui/Spinner'
 
 import { Filters } from './Filters'
 
+import styles from './AllMovie.module.scss'
+
 const AllMovies = () => {
     const { data: genres, isLoading: isGenresLoading } = useGenresQuery()
 
@@ -40,27 +42,41 @@ const AllMovies = () => {
                 filters={filters}
                 setFilters={setFilters}
             />
+            {data?.movies.length ? (
+                <>
+                    <Box maw="1440px" m="0 auto">
+                        <Grid columns={2}>
+                            {isLoading ? (
+                                <Spinner />
+                            ) : (
+                                data?.movies?.map((movie: MovieCardData) => (
+                                    <MovieCard
+                                        key={movie.id}
+                                        currentMovie={movie}
+                                    />
+                                ))
+                            )}
+                        </Grid>
 
-            <Box maw="1440px" m="0 auto">
-                <Grid columns={2}>
-                    {isLoading ? (
-                        <Spinner />
-                    ) : (
-                        data?.map((movie: MovieCardData) => (
-                            <MovieCard key={movie.id} currentMovie={movie} />
-                        ))
-                    )}
-                </Grid>
-
-                <Pagination
-                    total={500}
-                    value={activePage}
-                    onChange={(val) => {
-                        setPage(val)
-                    }}
-                    mt="sm"
-                />
-            </Box>
+                        <Pagination
+                            total={data?.totalPages}
+                            value={activePage}
+                            onChange={(val) => {
+                                setPage(val)
+                            }}
+                            mt="sm"
+                        />
+                    </Box>
+                </>
+            ) : (
+                <Box maw="1440px" m="0 auto" className={styles.emptyData}>
+                    <img
+                        src="src/shared/assets/img/dontSuch.png"
+                        alt="dontSuch"
+                    />
+                    <span>We don't have such movies, look for another one</span>
+                </Box>
+            )}
         </>
     )
 }

@@ -2,6 +2,7 @@ import { FC, memo, useMemo, useState } from 'react'
 import {
     Combobox,
     Group,
+    Input,
     Pill,
     PillsInput,
     useCombobox,
@@ -19,6 +20,7 @@ interface Props {
     options: SelectOption[]
     selectedValues: string[]
     disabled?: boolean
+    placeholder: string
 
     onChange: (value: string) => void
     onRemove: (value: string) => void
@@ -27,6 +29,7 @@ interface Props {
 const MultiSelect: FC<Props> = ({
     disabled = false,
     label,
+    placeholder,
     options: optionsData,
     selectedValues,
     onRemove,
@@ -66,6 +69,8 @@ const MultiSelect: FC<Props> = ({
         return genresKeys
     }, [selectedValues, optionsData])
 
+    console.log(pillsValue)
+
     return (
         <Combobox
             disabled={disabled}
@@ -90,20 +95,26 @@ const MultiSelect: FC<Props> = ({
                     }
                 >
                     <Pill.Group>
-                        {pillsValue.map((item: string, index: number) => (
-                            <CustomPill
-                                isLastIndex={index === pillsValue.length - 1}
-                                key={item}
-                                value={item}
-                                onRemove={() =>
-                                    onRemove?.(
-                                        selectedValues[
-                                            selectedValues.length - 1
-                                        ]
-                                    )
-                                }
-                            />
-                        ))}
+                        {pillsValue.length ? (
+                            pillsValue.map((item: string, index: number) => (
+                                <CustomPill
+                                    isLastIndex={
+                                        index === pillsValue.length - 1
+                                    }
+                                    key={item}
+                                    value={item}
+                                    onRemove={() =>
+                                        onRemove?.(
+                                            selectedValues[
+                                                selectedValues.length - 1
+                                            ]
+                                        )
+                                    }
+                                />
+                            ))
+                        ) : (
+                            <Input.Placeholder>{placeholder}</Input.Placeholder>
+                        )}
 
                         <Combobox.EventsTarget>
                             <PillsInput.Field

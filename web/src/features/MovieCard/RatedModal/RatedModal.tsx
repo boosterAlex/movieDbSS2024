@@ -10,7 +10,7 @@ interface Props {
 }
 
 function RatedModal({ opened, close, onSave, onRemove }: Props) {
-    const [value, setValue] = useState(1)
+    const [value, setValue] = useState<number>(1)
 
     const handleSave = () => {
         try {

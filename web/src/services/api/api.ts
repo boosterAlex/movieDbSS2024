@@ -56,10 +56,10 @@ export const useMoviesQuery = ({
         api.get('/discover/movie', {
             params: {
                 ...(genres?.length && { with_genres: genres.join(',') }),
-                ...(releaseYear.length && {
+                ...(releaseYear && {
                     'primary_release_date.gte': `${releaseYear}-01-01`
                 }),
-                ...(releaseYear.length && {
+                ...(releaseYear && {
                     'primary_release_date.lte': `${releaseYear}-12-31`
                 }),
                 ...(activePage && { page: activePage.toString() })
@@ -69,26 +69,34 @@ export const useMoviesQuery = ({
     return useQuery({
         queryFn: get,
         queryKey: ['movies'],
-        select: ({ data }) => {
+        select: (data) => {
+            const { data: movies } = data
             return (
-                data.results.map((movie: MovieCardData) => {
-                    return {
-                        id: movie.id,
-                        original_title: movie.original_title,
-                        poster_path:
-                            movie.poster_path === null
-                                ? 'src/shared/assets/img/NoPoster.png'
-                                : `${IMG_BASE_URL}${movie.poster_path}`,
-                        release_date: movie.release_date,
-                        vote_average: movie.vote_average,
-                        vote_count: movie.vote_count,
-                        genre_ids: movie.genre_ids,
-                        genresStrList: generateGenres(
-                            movie.genre_ids,
-                            genresList
-                        )
-                    }
-                }) || []
+                {
+                    totalPages:
+                        data?.data?.total_pages >= 500
+                            ? 500
+                            : data.data.total_pages,
+                    movies:
+                        movies.results.map((movie: MovieCardData) => {
+                            return {
+                                id: movie.id,
+                                original_title: movie.original_title,
+                                poster_path:
+                                    movie.poster_path === null
+                                        ? 'src/shared/assets/img/NoPoster.png'
+                                        : `${IMG_BASE_URL}${movie.poster_path}`,
+                                release_date: movie.release_date,
+                                vote_average: movie.vote_average,
+                                vote_count: movie.vote_count,
+                                genre_ids: movie.genre_ids,
+                                genresStrList: generateGenres(
+                                    movie.genre_ids,
+                                    genresList
+                                )
+                            }
+                        }) || []
+                } || []
             )
         }
     })

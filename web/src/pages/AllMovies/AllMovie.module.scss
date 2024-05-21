@@ -1,0 +1,17 @@
+.emptyData {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 468px;
+    height: 293px;
+    padding-top: 50px;
+    img {
+        width: 310px;
+        padding-bottom: 16px;
+    }
+    span {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24.2px;
+    }
+}

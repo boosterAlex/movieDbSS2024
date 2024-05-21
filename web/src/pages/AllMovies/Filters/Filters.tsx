@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 
+import { Select as MantineSelect } from '@mantine/core'
 import { Select, MultiSelect } from 'src/shared/ui'
 import { SelectOption, TypeSetState } from 'src/types'
 
@@ -40,6 +41,7 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                             genres: [...prev.genres, value]
                         }))
                     }}
+                    placeholder="Select genres"
                 />
                 <Select
                     label="Release year"
@@ -53,6 +55,24 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                     }}
                     placeholder="Select release year"
                 />
+                <MantineSelect
+                    label="Ratings"
+                    allowDeselect={false}
+                    withCheckIcon={false}
+                    data={[
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10'
+                    ]}
+                ></MantineSelect>
             </div>
         </>
     )
