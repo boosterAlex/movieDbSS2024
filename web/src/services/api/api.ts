@@ -6,9 +6,6 @@ import { MovieCardData } from 'src/types'
 
 const api = axios.create({
     baseURL: BASE_URL
-    // headers: {
-    //     Authorization: options.headers.Authorization
-    // }
 })
 
 export const useGenresQuery = () => {
@@ -27,9 +24,11 @@ export const useGenresQuery = () => {
     return tranformedResults
 }
 
-export const useMoviesQuery = ({ genres = [] }: { genres?: string[] } = {}) => {
+export const useMoviesQuery = ({
+    genres,
+    releaseYear = []
+}: { genres?: string[]; releaseYear?: string[] } = {}) => {
     const { data: genresList } = useGenresQuery()
-
     const generateGenres = (
         genresId: number[],
         genresArr: { id: number; name: string }[]
@@ -50,7 +49,13 @@ export const useMoviesQuery = ({ genres = [] }: { genres?: string[] } = {}) => {
     const get = () =>
         api.get('/discover/movie', {
             params: {
-                ...(genres?.length && { with_genres: genres.join(',') })
+                ...(genres?.length && { with_genres: genres.join(',') }),
+                ...(releaseYear.length && {
+                    'primary_release_date.gte': `${releaseYear.join()}-01-01`
+                }),
+                ...(releaseYear.length && {
+                    'primary_release_date.lte': `${releaseYear.join()}-12-31`
+                })
             }
         })
 

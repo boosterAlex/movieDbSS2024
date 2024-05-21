@@ -45,7 +45,6 @@ const MovieCard = ({ currentMovie }: Props) => {
                 return movie.id === currentMovie.id
             }
         )
-        console.log(existedMovieIndex)
 
         if (existedMovieIndex !== -1) {
             ratedMovies[existedMovieIndex] = {

@@ -24,6 +24,7 @@ interface Props {
     optionsData: SelectOption[]
     selectedValues: string[]
     setSelectedValues: TypeSetState<string[]>
+    placeholder: string
 }
 
 const CustomSelect: FC<Props> = ({
@@ -33,9 +34,12 @@ const CustomSelect: FC<Props> = ({
     label,
     optionsData,
     selectedValues,
-    setSelectedValues
+    setSelectedValues,
+    placeholder
 }) => {
     const theme = useMantineTheme()
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const combobox = useCombobox({
         onDropdownClose: () => {
@@ -49,17 +53,20 @@ const CustomSelect: FC<Props> = ({
         }
     })
 
-    const [isOpen, setIsOpen] = useState(false)
-
     const handleValueSelect = (selected: string) => {
         if (isMulti) {
-            if (selectedValues.length >= 3 || selectedValues.includes(selected))
+            if (
+                selectedValues.length >= 3 ||
+                selectedValues.includes(selected)
+            ) {
                 return
+            }
             setSelectedValues((current: string[]) => [...current, selected])
         } else {
             if (selected !== selectedValues[0]) {
                 setSelectedValues([selected])
             }
+            combobox.closeDropdown()
         }
     }
 
@@ -67,25 +74,6 @@ const CustomSelect: FC<Props> = ({
         setSelectedValues((current: string[]) =>
             current.filter((v) => v !== selectedValues)
         )
-
-    const options = optionsData?.map((item) => {
-        return (
-            <Combobox.Option value={item?.id?.toString()} key={item.id}>
-                <Group gap="sm">
-                    <Group gap={7}>
-                        <span>{item.name}</span>
-                    </Group>
-                </Group>
-            </Combobox.Option>
-        )
-    })
-    const renderIcon = () => {
-        return isOpen ? (
-            <IconChevronUp color={theme.colors.purple[5]} />
-        ) : (
-            <IconChevronDown color={theme.colors.gray[5]} />
-        )
-    }
 
     const pillsValue = useMemo(() => {
         const genresKeys = optionsData.reduce((acc, item) => {
@@ -112,7 +100,13 @@ const CustomSelect: FC<Props> = ({
                     onClick={() => combobox.toggleDropdown()}
                     style={style}
                     rightSectionPointerEvents="none"
-                    rightSection={renderIcon()}
+                    rightSection={
+                        isOpen ? (
+                            <IconChevronUp color={theme.colors.purple[5]} />
+                        ) : (
+                            <IconChevronDown color={theme.colors.gray[5]} />
+                        )
+                    }
                 >
                     <Pill.Group>
                         {pillsValue.length > 0 ? (
@@ -121,7 +115,7 @@ const CustomSelect: FC<Props> = ({
                                     isLastIndex={
                                         index === pillsValue.length - 1
                                     }
-                                    key={index}
+                                    key={item}
                                     value={item}
                                     onRemove={() =>
                                         handleValueRemove(
@@ -133,7 +127,7 @@ const CustomSelect: FC<Props> = ({
                                 />
                             ))
                         ) : (
-                            <Input.Placeholder>Select genre</Input.Placeholder>
+                            <Input.Placeholder>{placeholder}</Input.Placeholder>
                         )}
 
                         <Combobox.EventsTarget>
@@ -157,7 +151,20 @@ const CustomSelect: FC<Props> = ({
             </Combobox.DropdownTarget>
 
             <Combobox.Dropdown>
-                <Combobox.Options>{options}</Combobox.Options>
+                <Combobox.Options>
+                    {optionsData?.map((item) => (
+                        <Combobox.Option
+                            value={item?.id?.toString()}
+                            key={item.id}
+                        >
+                            <Group gap="sm">
+                                <Group gap={7}>
+                                    <span>{item.name}</span>
+                                </Group>
+                            </Group>
+                        </Combobox.Option>
+                    ))}
+                </Combobox.Options>
             </Combobox.Dropdown>
         </Combobox>
     )

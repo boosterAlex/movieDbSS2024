@@ -7,10 +7,12 @@ import { Layout } from 'src/app/Layout'
 import { Page404 } from 'src/pages/Page404'
 import { AboutMovie, RatedMovies } from 'src/pages'
 import { AllMovies } from 'src/pages/AllMovies'
+import { ScrollToTop } from 'src/components/ScrollToTop'
 
 const PublicRoutes = () => {
     return (
         <Suspense fallback={<Spinner />}>
+            <ScrollToTop />
             <Routes>
                 <Route path={ROUTES.MAIN} element={<Layout />}>
                     <Route path={ROUTES.MAIN} element={<AllMovies />} />

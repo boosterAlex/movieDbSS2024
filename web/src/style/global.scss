@@ -9,13 +9,16 @@ body::-webkit-scrollbar {
 
 * {
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+
 }
 
 body {
     background-color: #F5F5F6;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1440px;
+    box-sizing: border-box;
 }
 
 a {
@@ -23,7 +26,10 @@ a {
 }
 
 main{
-    padding: 40px 90px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    padding-right: 66px;
+    padding-left: 90px;
 }
 
 .mantine-MultiSelect-option:hover {

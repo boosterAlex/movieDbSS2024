@@ -10,7 +10,7 @@ const MovieList = () => {
     const { data, isLoading } = useMoviesQuery()
 
     return (
-        <Box maw="1160px" m="auto">
+        <Box maw="1440px" m=" 0 auto">
             <Grid columns={2}>
                 {isLoading ? (
                     <Spinner />
