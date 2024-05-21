@@ -1,7 +1,7 @@
 import { MovieCardData } from 'src/types'
 import { MovieCard } from 'src/features'
 
-import styles from './rated.module.scss'
+// import styles from './rated.module.scss'
 import { useState } from 'react'
 import { Title } from '@mantine/core'
 
