@@ -4,6 +4,7 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    appType: 'mpa', // disable history fallback
     plugins: [svgr({ include: '**/*.svg' }), react()],
     server: {
         port: 3000
