@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 
 import { BASE_URL, IMG_BASE_URL } from './constants'
 import { MovieCardData, SelectOption } from 'src/types'
-import NoPoster from 'src/shared/assets/icon/NoPoster.svg'
 import { AboutMovieData } from 'src/types/movie'
 
 const api = axios.create({

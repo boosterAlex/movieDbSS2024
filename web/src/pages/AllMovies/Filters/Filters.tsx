@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Button, Select as MantineSelect } from '@mantine/core'
+import { Button } from '@mantine/core'
 import { Select, MultiSelect } from 'src/shared/ui'
 import { SelectOption, TypeSetState } from 'src/types'
 
