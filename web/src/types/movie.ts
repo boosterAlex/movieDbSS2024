@@ -8,3 +8,12 @@ export interface MovieCardData {
     genre_ids: number[]
     genresStrList: string[]
 }
+
+export interface MovieData {
+    original_title: string
+    homepage: string
+    overview: string
+    vote_average: number
+    poster_path: string
+    release_date: string
+}

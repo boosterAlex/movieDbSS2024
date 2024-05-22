@@ -24,6 +24,25 @@ export const useGenresQuery = () => {
     return tranformedResults
 }
 
+export const useMovieQuery = (id: string | undefined) => {
+    const get = () => api.get(`movie/${id}`)
+
+    return useQuery({
+        queryFn: get,
+        queryKey: ['movie'],
+        select: ({ data }) => {
+            return {
+                original_title: data.original_title,
+                homepage: data.homepage,
+                overview: data.overview,
+                vote_average: data.vote_average,
+                poster_path: data.poster_path,
+                release_date: data.release_date
+            }
+        }
+    })
+}
+
 export const useMoviesQuery = ({
     genres,
     releaseYear = '',

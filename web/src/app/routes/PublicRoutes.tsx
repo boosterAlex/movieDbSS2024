@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ROUTES } from 'src/shared/consts'
 import { Spinner } from 'src/shared/ui/Spinner'
@@ -18,8 +18,12 @@ const PublicRoutes = () => {
                     <Route path={ROUTES.MAIN} element={<AllMovies />} />
                     <Route path={ROUTES.MOVIE} element={<AboutMovie />} />
                     <Route path={ROUTES.RATED} element={<RatedMovies />} />
+                    <Route path={ROUTES.NOTFOUND} element={<Page404 />} />
                 </Route>
-                <Route path="*" element={<Page404 />} />
+                <Route
+                    path="*"
+                    element={<Navigate to={ROUTES.NOTFOUND} replace />}
+                />
             </Routes>
         </Suspense>
     )

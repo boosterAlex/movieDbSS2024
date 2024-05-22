@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
-import { NotFound } from 'src/shared/assets/img'
+import { ReactComponent as NotFound } from 'src/shared/assets/img/404.svg'
 import { ROUTES } from 'src/shared/consts'
 import { Logo } from 'src/shared/ui'
 
