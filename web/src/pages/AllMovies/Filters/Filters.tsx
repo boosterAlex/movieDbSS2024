@@ -1,29 +1,37 @@
 import { useMemo } from 'react'
 
-import { Select as MantineSelect } from '@mantine/core'
+import { Button, Select as MantineSelect } from '@mantine/core'
 import { Select, MultiSelect } from 'src/shared/ui'
 import { SelectOption, TypeSetState } from 'src/types'
 
 import { generateYears } from './generateReleaseYears'
+import { RATING_VALUES, initFormValues } from './consts'
 
+export interface FiltersState {
+    genres: string[]
+    releaseYear: string
+    ratingFrom: string
+    ratingTo: string
+    sortBy: string
+}
 interface Props {
-    filters: {
-        genres: string[]
-        releaseYear: string
-    }
-    setFilters: TypeSetState<{
-        genres: string[]
-        releaseYear: string
-    }>
+    filters: FiltersState
+    setFilters: TypeSetState<FiltersState>
     genres: SelectOption[]
     isGenresLoading: boolean
 }
+
 const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
     const allYears = useMemo(() => generateYears(), [])
 
+    function onClearFilters() {
+        setFilters(initFormValues)
+    }
+
+    console.log('filters.ratingFrom', filters.ratingFrom)
     return (
         <>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', gap: '16px' }}>
                 <MultiSelect
                     label="Genres"
                     options={genres}
@@ -55,24 +63,40 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                     }}
                     placeholder="Select release year"
                 />
-                <MantineSelect
+
+                <Select
                     label="Ratings"
-                    allowDeselect={false}
-                    withCheckIcon={false}
-                    data={[
-                        '0',
-                        '1',
-                        '2',
-                        '3',
-                        '4',
-                        '5',
-                        '6',
-                        '7',
-                        '8',
-                        '9',
-                        '10'
-                    ]}
-                ></MantineSelect>
+                    placeholder="Select rating from"
+                    optionsData={RATING_VALUES}
+                    selectedValues={filters.ratingFrom}
+                    onChange={(value) => {
+                        if (typeof value === 'string') {
+                            setFilters((prev) => ({
+                                ...prev,
+                                ratingFrom: value
+                            }))
+                        }
+                    }}
+                />
+
+                <Select
+                    placeholder="Select rating to"
+                    optionsData={RATING_VALUES}
+                    selectedValues={filters.ratingTo}
+                    onChange={(value) => {
+                        if (typeof value === 'string') {
+                            setFilters((prev) => ({
+                                ...prev,
+                                ratingTo: value
+                            }))
+                        }
+                    }}
+                    // style={{display:"flex", alignItems:"flex-end"}}
+                />
+
+                <Button variant="light" onClick={onClearFilters}>
+                    Clear all
+                </Button>
             </div>
         </>
     )

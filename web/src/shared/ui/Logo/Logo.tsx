@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { LogoIcon } from 'src/shared/assets/icon'
+import LogoIcon from 'src/shared/assets/icon/logo.svg'
 import { ROUTES } from 'src/shared/consts'
 
 import styles from './logo.module.scss'

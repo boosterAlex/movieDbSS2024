@@ -146,6 +146,7 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
                 opened={opened}
                 close={close}
                 onSave={handleAddRating}
+                personalRating={currentMovie.personalRating || 1}
                 onRemove={onRemoveFromFavourite}
             />
         </div>

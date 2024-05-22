@@ -69,8 +69,6 @@ const MultiSelect: FC<Props> = ({
         return genresKeys
     }, [selectedValues, optionsData])
 
-    console.log(pillsValue)
-
     return (
         <Combobox
             disabled={disabled}

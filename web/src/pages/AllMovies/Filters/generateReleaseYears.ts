@@ -7,5 +7,5 @@ export const generateYears = () => {
         years.push({ id: year, name: year.toString() })
     }
 
-    return years
+    return years.reverse()
 }

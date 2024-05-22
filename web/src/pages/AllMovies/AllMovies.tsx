@@ -12,14 +12,13 @@ import DontSuch from 'src/shared/assets/icon/DontSuch.svg'
 import { Filters } from './Filters'
 
 import styles from './AllMovie.module.scss'
+import { FiltersState } from './Filters/Filters'
+import { initFormValues } from './Filters/consts'
 
 const AllMovies = () => {
     const { data: genres, isLoading: isGenresLoading } = useGenresQuery()
 
-    const [filters, setFilters] = useState<{
-        genres: string[]
-        releaseYear: string
-    }>({ genres: [], releaseYear: '' })
+    const [filters, setFilters] = useState<FiltersState>(initFormValues)
     const [activePage, setPage] = useState(1)
     const { refetch, data, isLoading } = useMoviesQuery({
         ...filters,

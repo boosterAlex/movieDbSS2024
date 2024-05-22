@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 
 import { BASE_URL, IMG_BASE_URL } from './constants'
 import { MovieCardData, SelectOption } from 'src/types'
+import NoPoster from 'src/shared/assets/icon/NoPoster.svg'
+import { AboutMovieData } from 'src/types/movie'
 
 const api = axios.create({
     baseURL: BASE_URL
@@ -30,14 +32,19 @@ export const useMovieQuery = (id: string | undefined) => {
     return useQuery({
         queryFn: get,
         queryKey: ['movie'],
-        select: ({ data }) => {
+        select: ({ data }: { data: AboutMovieData }) => {
             return {
                 original_title: data.original_title,
-                homepage: data.homepage,
-                overview: data.overview,
-                vote_average: data.vote_average,
                 poster_path: data.poster_path,
-                release_date: data.release_date
+                release_date: data.release_date,
+                vote_average: data.vote_average,
+                vote_count: data.vote_count,
+                runtime: data.runtime,
+                budget: data.budget,
+                revenue: data.revenue,
+                genres: data.genres,
+                overview: data.overview,
+                production_companies: data.production_companies
             }
         }
     })
@@ -101,10 +108,10 @@ export const useMoviesQuery = ({
                             return {
                                 id: movie.id,
                                 original_title: movie.original_title,
-                                poster_path: `${IMG_BASE_URL}${movie.poster_path}`,
-                                // movie.poster_path === null
-                                //     ? 'src/shared/assets/img/NoPoster.png'
-                                //     : `${IMG_BASE_URL}${movie.poster_path}`,
+                                poster_path:
+                                    movie.poster_path === null
+                                        ? 'src/shared/assets/icon/NoPoster.svg'
+                                        : `${IMG_BASE_URL}${movie.poster_path}`,
                                 release_date: movie.release_date,
                                 vote_average: movie.vote_average,
                                 vote_count: movie.vote_count,

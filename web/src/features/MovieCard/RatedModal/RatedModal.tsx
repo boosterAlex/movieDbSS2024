@@ -7,10 +7,17 @@ interface Props {
     close: () => void
     onSave: (selectedRating: number) => void
     onRemove: () => void
+    personalRating: number
 }
 
-function RatedModal({ opened, close, onSave, onRemove }: Props) {
-    const [value, setValue] = useState<number>(1)
+function RatedModal({
+    opened,
+    close,
+    onSave,
+    onRemove,
+    personalRating
+}: Props) {
+    const [value, setValue] = useState<number>(personalRating)
 
     const handleSave = () => {
         try {

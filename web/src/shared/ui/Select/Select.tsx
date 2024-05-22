@@ -14,7 +14,7 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 import { SelectOption } from 'src/types'
 
 interface Props {
-    label: string
+    label?: string
     optionsData: SelectOption[]
     selectedValues: string
     disabled?: boolean

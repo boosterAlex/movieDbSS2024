@@ -22,9 +22,6 @@ const AboutMovie = () => {
                 <h1>{data?.original_title}</h1>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <a href={data?.homepage} target="_blank">
-                    Homepage
-                </a>
                 <span>Release data: {data?.release_date}</span>
                 <h3>{data?.overview}</h3>
                 <span>Rating {data?.vote_average}</span>
