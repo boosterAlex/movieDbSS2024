@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
-import { ReactComponent as NotFound } from 'src/shared/assets/img/404.svg'
+import NotFound from 'src/shared/assets/img/404.svg'
 import { ROUTES } from 'src/shared/consts'
 import { Logo } from 'src/shared/ui'
 
@@ -14,7 +14,7 @@ const Page404 = () => {
                 <Logo />
             </div>
             <div className={styles.content}>
-                <NotFound className={styles.img} />
+                <NotFound />
                 <span className={styles.span}>
                     We can’t find the page you are looking for
                 </span>

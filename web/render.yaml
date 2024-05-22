@@ -1,7 +1,0 @@
-services:
-    - type: web
-      name: movieDbSS2024
-      env: static
-      buildCommand: npm install --legacy-peer-deps && npm run build
-      staticPublishPath: dist
-      autoDeploy: false

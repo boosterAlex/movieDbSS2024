@@ -7,7 +7,7 @@ import { MovieCardData } from 'src/types'
 import { MovieCard } from 'src/features'
 import { Spinner } from 'src/shared/ui/Spinner'
 
-import { ReactComponent as DontSuch } from 'src/shared/assets/icon/DontSuch.svg'
+import DontSuch from 'src/shared/assets/icon/DontSuch.svg'
 
 import { Filters } from './Filters'
 
