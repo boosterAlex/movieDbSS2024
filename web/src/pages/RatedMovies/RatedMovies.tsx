@@ -3,7 +3,7 @@ import { MovieCard } from 'src/features'
 
 // import styles from './rated.module.scss'
 import { useState } from 'react'
-import { Title } from '@mantine/core'
+import { Pagination, Title } from '@mantine/core'
 
 const RatedMovies = () => {
     const [ratedMovies, setRatedMovies] = useState<MovieCardData[]>(
@@ -29,6 +29,14 @@ const RatedMovies = () => {
                         />
                     )
                 })}
+            {/* <Pagination
+                        total={data?.totalPages}
+                        value={activePage}
+                        onChange={(val) => {
+                            setPage(val)
+                        }}
+                        mt="sm"
+                    /> */}
         </>
     )
 }
