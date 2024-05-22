@@ -4,34 +4,37 @@ import { Button } from '@mantine/core'
 import { Select, MultiSelect } from 'src/shared/ui'
 import { SelectOption, TypeSetState } from 'src/types'
 
-import { generateYears } from './generateReleaseYears'
-import { RATING_VALUES, initFormValues } from './consts'
+import { isDisabledResetFilter, generateYears } from './lib/helper'
+import { RATING_VALUES, SORTBY_VALUES, initFormValues } from './consts'
 
-export interface FiltersState {
-    genres: string[]
-    releaseYear: string
-    ratingFrom: string
-    ratingTo: string
-    sortBy: string
-}
+import styles from './Filters.module.scss'
+import { FiltersState } from 'src/types'
 interface Props {
+    sortBy: string
     filters: FiltersState
     setFilters: TypeSetState<FiltersState>
+    setSortBy: TypeSetState<string>
     genres: SelectOption[]
     isGenresLoading: boolean
 }
 
-const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
+const Filters = ({
+    filters,
+    setFilters,
+    sortBy,
+    setSortBy,
+    genres,
+    isGenresLoading
+}: Props) => {
     const allYears = useMemo(() => generateYears(), [])
 
     function onClearFilters() {
         setFilters(initFormValues)
     }
 
-    console.log('filters.ratingFrom', filters.ratingFrom)
     return (
         <>
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div className={styles.wrapper}>
                 <MultiSelect
                     label="Genres"
                     options={genres}
@@ -50,6 +53,7 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                         }))
                     }}
                     placeholder="Select genres"
+                    className={styles.genres}
                 />
                 <Select
                     label="Release year"
@@ -62,11 +66,12 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                         }))
                     }}
                     placeholder="Select release year"
+                    className={styles.years}
                 />
 
                 <Select
                     label="Ratings"
-                    placeholder="Select rating from"
+                    placeholder="From"
                     optionsData={RATING_VALUES}
                     selectedValues={filters.ratingFrom}
                     onChange={(value) => {
@@ -77,10 +82,11 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                             }))
                         }
                     }}
+                    className={styles.ratingFrom}
                 />
 
                 <Select
-                    placeholder="Select rating to"
+                    placeholder="To"
                     optionsData={RATING_VALUES}
                     selectedValues={filters.ratingTo}
                     onChange={(value) => {
@@ -91,12 +97,27 @@ const Filters = ({ filters, setFilters, genres, isGenresLoading }: Props) => {
                             }))
                         }
                     }}
-                    // style={{display:"flex", alignItems:"flex-end"}}
+                    className={styles.ratingTo}
                 />
-
-                <Button variant="light" onClick={onClearFilters}>
-                    Clear all
+                <Button
+                    className={styles.resetFilters}
+                    disabled={isDisabledResetFilter(filters)}
+                    variant="transparent"
+                    onClick={onClearFilters}
+                >
+                    Reset filters
                 </Button>
+            </div>
+            <div className={styles.wrapperSortBy}>
+                <Select
+                    label="Sort by"
+                    optionsData={SORTBY_VALUES}
+                    selectedValues={sortBy}
+                    onChange={(value) => {
+                        setSortBy(value)
+                    }}
+                    className={styles.years}
+                />
             </div>
         </>
     )

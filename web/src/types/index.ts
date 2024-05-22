@@ -1,2 +1,6 @@
-export { type SelectOption, type TypeSetState } from './common'
-export { type MovieCardData } from './movie'
+export {
+    type SelectOption,
+    type TypeSetState,
+    type FiltersState
+} from './common'
+export { type MovieCardData, type AboutMovieData } from './movie'

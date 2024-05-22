@@ -16,6 +16,7 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 import { SelectOption } from 'src/types'
 
 interface Props {
+    className: string
     label: string
     options: SelectOption[]
     selectedValues: string[]
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const MultiSelect: FC<Props> = ({
+    className,
     disabled = false,
     label,
     placeholder,
@@ -82,7 +84,7 @@ const MultiSelect: FC<Props> = ({
                     label={label}
                     pointer
                     onClick={() => combobox.toggleDropdown()}
-                    style={{ width: '283.67px' }}
+                    className={className}
                     rightSectionPointerEvents="none"
                     rightSection={
                         isOpen ? (

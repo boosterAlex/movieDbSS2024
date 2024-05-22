@@ -13,6 +13,14 @@ export const RATING_VALUES: SelectOption[] = [
     { id: 9, name: '9' },
     { id: 10, name: '10' }
 ]
+export const SORTBY_VALUES = [
+    { id: 0, name: 'Most Popular' },
+    { id: 1, name: 'Least Popular' },
+    { id: 2, name: 'Most Rated' },
+    { id: 3, name: 'Least Rated' },
+    { id: 4, name: 'Most Voted' },
+    { id: 5, name: 'Least Voted' }
+]
 
 export const initFormValues = {
     genres: [],

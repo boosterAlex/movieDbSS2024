@@ -5,4 +5,13 @@ export interface SelectOption {
     name: string
 }
 
+export interface FiltersState {
+    genres: string[]
+    releaseYear: string
+    ratingFrom: string
+    ratingTo: string
+    sortBy: string
+    [key: string]: string | string[]
+}
+
 export type TypeSetState<T> = Dispatch<SetStateAction<T>>

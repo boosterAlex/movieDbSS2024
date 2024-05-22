@@ -14,15 +14,17 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 import { SelectOption } from 'src/types'
 
 interface Props {
+    className: string
     label?: string
     optionsData: SelectOption[]
     selectedValues: string
     disabled?: boolean
     onChange: (value: string) => void
-    placeholder: string
+    placeholder?: string
 }
 
 const Select: FC<Props> = ({
+    className,
     label,
     optionsData,
     selectedValues,
@@ -64,7 +66,7 @@ const Select: FC<Props> = ({
                     label={label}
                     pointer
                     onClick={() => combobox.toggleDropdown()}
-                    style={{ width: '283.67px' }}
+                    className={className}
                     rightSectionPointerEvents="none"
                     rightSection={
                         isOpen ? (
