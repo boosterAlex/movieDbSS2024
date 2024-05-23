@@ -11,8 +11,7 @@ export const generateYears = () => {
 
     return years.reverse()
 }
-// @ts-ignor
-export const isDisabledResetFilter = (obj: FiltersState) => {
+export const isDisabledResetFilter = (obj: any) => {
     const keys = Object.keys(obj)
 
     let isDisabled = true
@@ -23,6 +22,8 @@ export const isDisabledResetFilter = (obj: FiltersState) => {
         } else if (Array.isArray(obj[key]) && obj[key].length > 0) {
             isDisabled = false
         } else if (typeof obj[key] === 'string' && obj[key].length > 0) {
+            isDisabled = false
+        } else {
             isDisabled = false
         }
     })
