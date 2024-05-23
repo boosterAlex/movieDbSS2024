@@ -1,5 +1,3 @@
-// import { FiltersState } from 'src/types/common'
-
 export const generateYears = () => {
     const currentYear = new Date().getFullYear()
     const startYear = 1888
@@ -19,15 +17,10 @@ export const isDisabledResetFilter = (obj: any) => {
     keys.forEach((key) => {
         if (typeof obj[key] === 'number' && obj[key] >= 0) {
             isDisabled = false
-        } else if (Array.isArray(obj[key]) && obj[key].length > 0) {
-            isDisabled = false
-        } else if (typeof obj[key] === 'string' && obj[key].length > 0) {
-            isDisabled = false
-        } else {
+        } else if (obj[key].length) {
             isDisabled = false
         }
     })
-
     return isDisabled
 }
 
