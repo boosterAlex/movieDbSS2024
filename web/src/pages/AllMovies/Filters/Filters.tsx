@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 
-import { Button } from '@mantine/core'
+import { Button, NumberInput } from '@mantine/core'
 import { Select, MultiSelect } from 'src/shared/ui'
 import { SelectOption, TypeSetState } from 'src/types'
 
 import { isDisabledResetFilter, generateYears } from './lib/helper'
-import { RATING_VALUES, SORTBY_VALUES, initFormValues } from './consts'
+import { SORTBY_VALUES, initFormValues } from './consts'
 
 import styles from './Filters.module.scss'
 import { FiltersState } from 'src/types'
@@ -31,6 +31,8 @@ const Filters = ({
     function onClearFilters() {
         setFilters(initFormValues)
     }
+
+    console.log(typeof filters.ratingTo)
 
     return (
         <>
@@ -58,7 +60,7 @@ const Filters = ({
                 <Select
                     label="Release year"
                     optionsData={allYears}
-                    selectedValues={filters.releaseYear}
+                    selectedValue={filters.releaseYear}
                     onChange={(value) => {
                         setFilters((prev) => ({
                             ...prev,
@@ -68,35 +70,50 @@ const Filters = ({
                     placeholder="Select release year"
                     className={styles.years}
                 />
-
-                <Select
-                    label="Ratings"
+                <NumberInput
+                    value={filters.ratingFrom}
+                    label="Rating"
                     placeholder="From"
-                    optionsData={RATING_VALUES}
-                    selectedValues={filters.ratingFrom}
-                    onChange={(value) => {
-                        if (typeof value === 'string') {
-                            setFilters((prev) => ({
-                                ...prev,
-                                ratingFrom: value
-                            }))
-                        }
+                    min={0}
+                    max={
+                        filters.ratingTo !== ''
+                            ? Number(filters?.ratingFrom)
+                            : 10
+                    }
+                    onChange={(value: number | string) => {
+                        setFilters((prev) => ({
+                            ...prev,
+                            ratingFrom: value,
+                            ratingTo:
+                                value > prev.ratingTo &&
+                                typeof prev.ratingTo !== 'string'
+                                    ? value
+                                    : prev.ratingTo
+                        }))
                     }}
                     className={styles.ratingFrom}
                 />
-
-                <Select
+                <NumberInput
+                    value={filters.ratingTo}
                     placeholder="To"
-                    optionsData={RATING_VALUES}
-                    selectedValues={filters.ratingTo}
                     onChange={(value) => {
-                        if (typeof value === 'string') {
-                            setFilters((prev) => ({
-                                ...prev,
-                                ratingTo: value
-                            }))
-                        }
+                        setFilters((prev) => ({
+                            ...prev,
+                            ratingTo: value,
+                            ratingFrom:
+                                value < prev.ratingFrom &&
+                                typeof prev.ratingFrom !== 'string' &&
+                                value !== ''
+                                    ? value
+                                    : prev.ratingFrom
+                        }))
                     }}
+                    min={
+                        filters.ratingFrom !== ''
+                            ? Number(filters?.ratingFrom)
+                            : 0
+                    }
+                    max={10}
                     className={styles.ratingTo}
                 />
                 <Button
@@ -112,8 +129,9 @@ const Filters = ({
                 <Select
                     label="Sort by"
                     optionsData={SORTBY_VALUES}
-                    selectedValues={sortBy}
+                    selectedValue={sortBy}
                     onChange={(value) => {
+                        console.log(value)
                         setSortBy(value)
                     }}
                     className={styles.years}

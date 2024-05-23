@@ -15,17 +15,19 @@ import { Filters } from './Filters'
 import styles from './AllMovie.module.scss'
 
 import { initFormValues } from './Filters/consts'
+import { SortOptions } from 'src/types/common'
 
 const AllMovies = () => {
     const { data: genres, isLoading: isGenresLoading } = useGenresQuery()
 
     const [filters, setFilters] = useState<FiltersState>(initFormValues)
-    const [sortBy, setSortBy] = useState('Most Popular')
+    const [sortBy, setSortBy] = useState(SortOptions.MostPopular as string)
     const [activePage, setPage] = useState(1)
     const { refetch, data, isLoading } = useMoviesQuery({
         ...filters,
         genresList: genres,
-        activePage
+        activePage,
+        sortBy
     })
 
     const getSiblings = () => {
@@ -43,11 +45,15 @@ const AllMovies = () => {
     useEffect(() => {
         refetch()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters, activePage])
+    }, [filters, activePage, sortBy])
+
+    useEffect(() => {
+        setPage(1)
+    }, [filters])
 
     return (
         <>
-            <Title fz="32px" fw="700" lh="150%" lts="2">
+            <Title fz="32px" fw="700" lh="150%" lts="2" m="0 10 0 10">
                 Movies
             </Title>
 
@@ -61,30 +67,42 @@ const AllMovies = () => {
             />
             {isLoading && <Spinner />}
             {data?.movies.length > 0 && (
-                <Box maw="1440px" m="0 auto" className={styles.wrapper}>
-                    <Grid columns={2}>
-                        {data?.movies?.map((movie: MovieCardData) => (
-                            <MovieCard key={movie.id} currentMovie={movie} />
-                        ))}
-                    </Grid>
-                    <Pagination
-                        className={styles.pagination}
-                        classNames={{ dots: styles.hideDots }}
-                        total={data?.totalPages}
-                        value={activePage}
-                        siblings={getSiblings()}
-                        boundaries={getBoundaries()}
-                        onChange={(val) => {
-                            setPage(val)
-                        }}
-                        mt="sm"
-                    />
-                </Box>
+                <>
+                    <Box
+                        maw="1440px"
+                        m="0 auto"
+                        className={styles.wrapperMovies}
+                    >
+                        <Grid columns={2}>
+                            {data?.movies?.map((movie: MovieCardData) => (
+                                <MovieCard
+                                    key={movie.id}
+                                    currentMovie={movie}
+                                />
+                            ))}
+                        </Grid>
+                    </Box>
+                    <Box className={styles.pagination}>
+                        <Pagination
+                            classNames={{ dots: styles.hideDots }}
+                            total={data?.totalPages}
+                            value={activePage}
+                            siblings={getSiblings()}
+                            boundaries={getBoundaries()}
+                            onChange={(val) => {
+                                setPage(val)
+                            }}
+                            mt="sm"
+                        />
+                    </Box>
+                </>
             )}
             {!isLoading && data?.movies?.length === 0 && (
                 <Box maw="1440px" m="0 auto" className={styles.emptyData}>
                     <DontSuch />
-                    <span>We don't have such movies, look for another one</span>
+                    <span style={{ marginTop: '40px' }}>
+                        We don't have such movies, look for another one
+                    </span>
                 </Box>
             )}
         </>

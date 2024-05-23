@@ -17,7 +17,7 @@ interface Props {
     className: string
     label?: string
     optionsData: SelectOption[]
-    selectedValues: string
+    selectedValue: string
     disabled?: boolean
     onChange: (value: string) => void
     placeholder?: string
@@ -27,7 +27,7 @@ const Select: FC<Props> = ({
     className,
     label,
     optionsData,
-    selectedValues,
+    selectedValue,
     disabled = false,
     onChange,
     placeholder
@@ -47,7 +47,7 @@ const Select: FC<Props> = ({
     })
 
     const handleValueSelect = (selected: string) => {
-        if (selected !== selectedValues) {
+        if (selected !== selectedValue) {
             onChange(selected)
         }
         combobox.closeDropdown()
@@ -77,8 +77,10 @@ const Select: FC<Props> = ({
                     }
                 >
                     <Pill.Group>
-                        {selectedValues ? (
-                            selectedValues
+                        {selectedValue ? (
+                            optionsData.find((option) => {
+                                return option.id === selectedValue
+                            })?.name
                         ) : (
                             <Input.Placeholder>{placeholder}</Input.Placeholder>
                         )}
@@ -90,7 +92,7 @@ const Select: FC<Props> = ({
                 <Combobox.Options>
                     {optionsData?.map((item) => (
                         <Combobox.Option
-                            value={item?.id?.toString()}
+                            value={item?.id.toString()}
                             key={item.id}
                         >
                             <Group gap="sm">

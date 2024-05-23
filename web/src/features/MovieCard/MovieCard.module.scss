@@ -12,41 +12,40 @@
     justify-content: space-between;
   }
   
-  .content {
-    display: flex;
-    width: 398px;
+.content {
+  display: flex;
+  width: 398px;
   }
 
-  .poster {
-    background-color: #F5F5F6;
-    object-fit:contain;
-    width: 119px;
-    height: 170px;
-    margin-right: 16px;
+.poster {
+  background-color: #F5F5F6;
+  object-fit:contain;
+  width: 119px;
+  height: 170px;
+  margin-right: 16px;
+  }
+  
+.generalInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+  
+.genresInfo {
+  flex-direction: column;
+  justify-content: end;
+  display: flex;  
   }
 
-  .generalInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  
+.title {
+  color: #9854F6;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.2px;
   }
   
-  .genresInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    
-  }
-
-  
-  .title {
-    color: #9854F6;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 24.2px;
-  }
-  
-  .releaseYear {
+.releaseYear {
     color: #7B7C88;
     font-size: 16px;
     margin-bottom: 5px;
@@ -90,15 +89,22 @@
   }
 
   .rated {
-
+    display: flex;
     position: relative;
 
   }
   .ratedStar {
+    cursor: pointer;
       &:hover{
         scale: 1.1;
       }
       &:active{
         scale: 1;
       }
+    }
+    .ratingValue{
+      padding-top: 1px;
+      margin-left: 4px;
+      font-size: 16px;
+      font-weight: 600;
     }

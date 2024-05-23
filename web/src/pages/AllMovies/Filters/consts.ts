@@ -1,4 +1,5 @@
 import { SelectOption } from 'src/types'
+import { SortOptions } from 'src/types/common'
 
 export const RATING_VALUES: SelectOption[] = [
     { id: 0, name: '0' },
@@ -13,14 +14,25 @@ export const RATING_VALUES: SelectOption[] = [
     { id: 9, name: '9' },
     { id: 10, name: '10' }
 ]
-export const SORTBY_VALUES = [
-    { id: 0, name: 'Most Popular' },
-    { id: 1, name: 'Least Popular' },
-    { id: 2, name: 'Most Rated' },
-    { id: 3, name: 'Least Rated' },
-    { id: 4, name: 'Most Voted' },
-    { id: 5, name: 'Least Voted' }
-]
+
+export const SORT_LABELS: { [key in SortOptions]: string } = {
+    [SortOptions.MostPopular]: 'Most Popular',
+    [SortOptions.LeastPopular]: 'Least Popular',
+    [SortOptions.NewestReleases]: 'Newest Releases',
+    [SortOptions.OldestReleases]: 'Oldest Releases',
+    [SortOptions.HighestRated]: 'Highest Rated',
+    [SortOptions.LowestRated]: 'Lowest Rated',
+    [SortOptions.MostVotes]: 'Most Votes',
+    [SortOptions.FewestVotes]: 'Fewest Votes',
+    [SortOptions.TitleAZ]: 'Title A-Z',
+    [SortOptions.TitleZA]: 'Title Z-A'
+}
+
+export const SORTBY_VALUES = Object.keys(SortOptions).map((key) => {
+    const id = SortOptions[key as keyof typeof SortOptions]
+    const name = SORT_LABELS[id]
+    return { id, name }
+})
 
 export const initFormValues = {
     genres: [],

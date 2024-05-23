@@ -1,7 +1,6 @@
-.wrapper {
+.wrapperMovies {
     display: flex;
     flex-direction: column;
-    align-items: end;
 }
 .emptyData {
     align-items: center;
@@ -27,4 +26,6 @@
 
 .pagination {
     margin-right: 22px;
+    display: flex;
+    justify-content: end;
 }

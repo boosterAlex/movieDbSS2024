@@ -9,6 +9,7 @@ import RatingIcon from 'src/shared/assets/icon/rating'
 import styles from './MovieCard.module.scss'
 
 import { RatedModal } from './RatedModal'
+import { formatNumber } from 'src/pages/AllMovies/Filters/lib/helper'
 
 interface Props {
     currentMovie: MovieCardData
@@ -40,7 +41,7 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
         if (findedMovie) {
             setRatingValue(findedMovie.personalRating)
         }
-    }, [])
+    }, [id])
 
     const handleAddRating = (selectedRating: number) => {
         const ratedMovies = JSON.parse(
@@ -123,7 +124,7 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
                                 {vote_average.toFixed(1)}
                             </span>
                             <span className={styles.voteCount}>
-                                ({vote_count})
+                                ({formatNumber(vote_count)})
                             </span>
                         </div>
                     </div>
@@ -134,12 +135,15 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
                 </div>
             </div>
 
-            <div onClick={open} className={styles.rated}>
+            <div className={styles.rated}>
                 <RatingIcon
+                    onClick={open}
                     className={styles.ratedStar}
                     color={ratingValue ? '#9854F6' : '#D5D6DC'}
                 />
-                {ratingValue && <span>{ratingValue}</span>}
+                {ratingValue && (
+                    <span className={styles.ratingValue}>{ratingValue}</span>
+                )}
             </div>
             <RatedModal
                 open={open}

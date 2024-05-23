@@ -53,16 +53,22 @@ export const useMoviesQuery = ({
     genres,
     releaseYear = '',
     activePage = 1,
-    genresList
+    genresList,
+    sortBy,
+    ratingFrom,
+    ratingTo
 }: {
     genres?: string[]
     releaseYear?: string
     activePage?: number
     genresList: SelectOption[]
+    sortBy: string
+    ratingFrom: number | string
+    ratingTo: number | string
 }) => {
     const generateGenres = (
         genresId: number[],
-        genresArr: { id: number; name: string }[]
+        genresArr: { id: number | string; name: string }[]
     ) => {
         const genres: string[] = []
 
@@ -87,7 +93,10 @@ export const useMoviesQuery = ({
                 ...(releaseYear && {
                     'primary_release_date.lte': `${releaseYear}-12-31`
                 }),
-                ...(activePage && { page: activePage.toString() })
+                ...(activePage && { page: activePage.toString() }),
+                ...(sortBy && { sort_by: sortBy }),
+                ...(ratingFrom && { 'vote_average.gte': ratingFrom }),
+                ...(ratingTo && { 'vote_average.lte': ratingTo })
             }
         })
 
