@@ -6,7 +6,7 @@ import { Box, Button, Grid, Input, Pagination, Title } from '@mantine/core'
 
 const MAX_MOVIES_ON_PAGE = 4
 
-import styles from './Rated.module.scss'
+import styles from './RatedMovies.module.scss'
 
 function filterSearch(text: string, query: string): boolean {
     return text.toLowerCase().includes(query.toLowerCase())
