@@ -1,12 +1,12 @@
 import { MovieCardData } from 'src/types'
 import { MovieCard } from 'src/features'
 
-import styles from './Rated.module.scss'
-
 import { useEffect, useState } from 'react'
 import { Box, Button, Grid, Input, Pagination, Title } from '@mantine/core'
 
 const MAX_MOVIES_ON_PAGE = 4
+
+import styles from './Rated.module.scss'
 
 function filterSearch(text: string, query: string): boolean {
     return text.toLowerCase().includes(query.toLowerCase())
