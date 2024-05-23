@@ -11,7 +11,7 @@ export const generateYears = () => {
 
     return years.reverse()
 }
-
+// @ts-ignor
 export const isDisabledResetFilter = (obj: FiltersState) => {
     const keys = Object.keys(obj)
 
