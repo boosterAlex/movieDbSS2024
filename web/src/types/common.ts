@@ -11,7 +11,7 @@ export interface FiltersState {
     ratingFrom: number | string
     ratingTo: number | string
     sortBy: string
-    [key: string]: number | string | string[]
+    [key: string | number]: number | string | string[]
 }
 
 export enum SortOptions {
