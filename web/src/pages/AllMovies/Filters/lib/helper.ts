@@ -1,4 +1,4 @@
-import { FiltersState } from 'src/types/common'
+// import { FiltersState } from 'src/types/common'
 
 export const generateYears = () => {
     const currentYear = new Date().getFullYear()
