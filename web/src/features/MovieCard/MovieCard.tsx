@@ -96,7 +96,7 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
-                {poster_path ? (
+                {poster_path !== 'https://image.tmdb.org/t/p/w500null' ? (
                     <img
                         src={poster_path}
                         alt={original_title}

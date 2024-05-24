@@ -49,6 +49,8 @@ const AboutMovie = () => {
         [data]
     )
 
+    console.log(data?.poster_path)
+
     const handleOpenModal = () => {
         setIsModalVisible(true)
     }
@@ -118,16 +120,17 @@ const AboutMovie = () => {
             <Box className={styles.container}>
                 <Box className={styles.movieContainer}>
                     <Box className={styles.imageContainer}>
-                        {data?.poster_path ? (
+                        {data?.poster_path ===
+                        'https://image.tmdb.org/t/p/w500null' ? (
+                            <Box className={styles.poster}>
+                                <NoPoster />
+                            </Box>
+                        ) : (
                             <img
                                 src={data?.poster_path}
                                 alt={data?.original_title}
                                 loading="lazy"
                             />
-                        ) : (
-                            <Box className={styles.poster}>
-                                <NoPoster />
-                            </Box>
                         )}
                     </Box>
                     <Box className={styles.info}>
