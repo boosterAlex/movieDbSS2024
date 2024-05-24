@@ -1,22 +1,23 @@
 @import 'src/style/variables/mixins.scss';
 
-.filterContainer{
-}
 .wrapper {
     display: flex;
     height: 100px;
     @include max-md {
-        flex-direction: column;
         align-items: center;
+        width: 100%;
+        flex-direction: column;
         justify-content: flex-start;
         height: auto;
-        margin-top: 0;
+        margin-top: -50px
+    }
+    @include max-sm {
+        margin-top: -30px
     }
 }
 .ratingsField {
     display: flex;
     @include max-md {
-        width: 100%;
         label{
             font-size: 10px;
             padding-bottom: 0;
@@ -78,19 +79,22 @@
 .resetFilters {
     top: 41px;
     @include max-md {
+        display: block;
         order: -1;
+        top: 15px;
+        left:0;
     }
 }
 
-.resetWrapper{
-}
 .wrapperSortBy{
     display: flex;
     justify-content: end;
     margin-bottom: 40px;
     margin-right: 15px;
     @include max-md {
+        width: 100%;
         justify-content: flex-start;
+        margin-top: 10px;
         margin-bottom: 0;
         margin-right: 0;
     }

@@ -29,13 +29,21 @@ a {
   text-decoration: none;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     padding: 40px 66px 40px 90px;
+    @include max-md {
+        padding: 35px 25px;
+        align-items: center;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
     @include max-sm {
         padding: 20px 10px;
         align-items: center;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 }
 
