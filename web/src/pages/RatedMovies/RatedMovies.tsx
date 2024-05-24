@@ -7,6 +7,8 @@ import DontSuch from 'src/shared/assets/icon/DontSuch.svg'
 import EmptyState from 'src/shared/assets/icon/EmptyState.svg'
 
 import styles from './RatedMovies.module.scss'
+import { ROUTES } from 'src/shared/consts'
+import { Link } from 'react-router-dom'
 
 const MAX_MOVIES_ON_PAGE = 4
 
@@ -62,83 +64,86 @@ const RatedMovies = () => {
         currentPage * MAX_MOVIES_ON_PAGE
     )
 
+    if (filter === '' && allMovies.length === 0) {
+        return (
+            <Box className={styles.emptyData}>
+                <Box className={styles.iconEmpty}>
+                    <EmptyState />
+                </Box>
+                <span className={styles.spanEmpty}>
+                    You haven't rated any films yet
+                </span>
+                <Link to={ROUTES.MAIN}>
+                    <Button className={styles.buttonHome}>Find movies</Button>
+                </Link>
+            </Box>
+        )
+    }
+
     return (
         <>
-            {allMovies.length === 0 ? (
-                <Box maw="1440px" m="0 auto" className={styles.emptyData}>
-                    <EmptyState />
-                    <span style={{ marginTop: '40px' }}>
-                        You haven't rated any films yet
-                    </span>
-                </Box>
-            ) : (
-                <Box>
-                    <Box className={styles.wrapperHeader}>
-                        <Title fz="32px" fw="700" lh="150%" lts="2">
-                            Rated movies
-                        </Title>
-                        <Box className={styles.wrapperInput}>
-                            <Input
-                                size="md"
-                                className={styles.input}
-                                value={filter}
-                                onChange={(event) =>
-                                    setFilter(event.target.value.trim())
-                                }
-                                placeholder="Search movie title"
-                            />
-                            <Button
-                                className={styles.searchButton}
-                                size="xs"
-                                onClick={onSearch}
-                            >
-                                Search
-                            </Button>
-                        </Box>
-                    </Box>
-                    {currentMovies.length === 0 && !allMovies.length && (
-                        <Box
-                            maw="1440px"
-                            m="0 auto"
-                            className={styles.emptyData}
+            <Box>
+                <Box className={styles.wrapperHeader}>
+                    <Title fz="32px" fw="700" lh="150%" lts="2">
+                        Rated movies
+                    </Title>
+                    <Box className={styles.wrapperInput}>
+                        <Input
+                            size="md"
+                            className={styles.input}
+                            value={filter}
+                            onChange={(event) =>
+                                setFilter(event.target.value.trim())
+                            }
+                            placeholder="Search movie title"
+                        />
+                        <Button
+                            className={styles.searchButton}
+                            size="xs"
+                            onClick={onSearch}
                         >
-                            <DontSuch />
-                            <span style={{ marginTop: '40px' }}>
-                                We don't have such movies, look for another one
-                            </span>
-                        </Box>
-                    )}
-                    <Box className={styles.wrapperMovies}>
-                        <Grid columns={2}>
-                            {currentMovies.map((movie: MovieCardData) => {
-                                return (
-                                    <MovieCard
-                                        key={movie.id}
-                                        currentMovie={movie}
-                                        handleRemoveFromFavourite={(data) =>
-                                            handleRemove(data)
-                                        }
-                                    />
-                                )
-                            })}
-                        </Grid>
+                            Search
+                        </Button>
                     </Box>
-                    {allMovies.length > MAX_MOVIES_ON_PAGE && (
-                        <Box className={styles.pagination}>
-                            <Pagination
-                                total={Math.ceil(
-                                    allMovies.length / MAX_MOVIES_ON_PAGE
-                                )}
-                                value={currentPage}
-                                onChange={(val) => {
-                                    setCurrentPage(val)
-                                }}
-                                mt="sm"
-                            />
-                        </Box>
-                    )}
                 </Box>
-            )}
+                {currentMovies.length === 0 && allMovies.length === 0 && (
+                    <Box maw="1440px" m="0 auto" className={styles.emptyData}>
+                        <DontSuch />
+                        <span style={{ marginTop: '40px' }}>
+                            We don't have such movies, look for another one
+                        </span>
+                    </Box>
+                )}
+                <Box className={styles.wrapperMovies}>
+                    <Grid columns={2}>
+                        {currentMovies.map((movie: MovieCardData) => {
+                            return (
+                                <MovieCard
+                                    key={movie.id}
+                                    currentMovie={movie}
+                                    handleRemoveFromFavourite={(data) =>
+                                        handleRemove(data)
+                                    }
+                                />
+                            )
+                        })}
+                    </Grid>
+                </Box>
+                {allMovies.length > MAX_MOVIES_ON_PAGE && (
+                    <Box className={styles.pagination}>
+                        <Pagination
+                            total={Math.ceil(
+                                allMovies.length / MAX_MOVIES_ON_PAGE
+                            )}
+                            value={currentPage}
+                            onChange={(val) => {
+                                setCurrentPage(val)
+                            }}
+                            mt="sm"
+                        />
+                    </Box>
+                )}
+            </Box>
         </>
     )
 }

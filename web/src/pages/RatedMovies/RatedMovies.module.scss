@@ -1,37 +1,75 @@
+@import 'src/style/variables/mixins.scss';
+
+
 .wrapperHeader {
+    position: relative;
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
     padding: 0 10px 0 10px;
     width: 1004px;
+    @include max-md {
+        margin: 0 auto;
+        align-self: center;
+        justify-content: flex-start;
+    }
 }
 .wrapperInput {
     display: flex;
     align-items: center;
     position: relative;
+    @include max-md {
+        width: 100% !important;
+    }
 }
 
 .wrapperMovies {
     display: flex;
     flex-direction: column;
     min-height: 476px;
-    
 }
 
 .input {
     position: absolute;
     transition: none;
-    width: 500px;
+    width: 490px !important;
     left: 75px;
-}
+    @include max-md {
+        width: 500px !important;
+        left: -20px
+    }
 
+    @include max-sm {
+        align-self: center;
+        min-width: 320px !important;
+    }
+}
 
 .pagination {
     display: flex;
     justify-content: center;
     width: 990px;
+    @include max-md {
+        align-self: center;
+        width: 500px !important;
+    }
+    @include max-sm {
+        width: 350px !important;
+    }
 }
 
+.searchButton {
+    position: relative;
+    @include max-md {
+       right: 20px;
+        left: -100px
+    }
+
+    @include max-sm {
+        right: 20px;
+        left: -100px
+    }
+  }
 .emptyData {
     margin-left: 100px;
     align-items: center;
@@ -41,15 +79,26 @@
     width: 668px;
     height: 393px;
     padding-top: 50px;
-    span {
-        font-weight: 600;
+    margin: 0 auto;
+    @include max-md {
+        width: 390px !important;
+        left: 50px;
+    }
+
+}
+.spanEmpty{
+    margin-bottom: 16px;
+    font-weight: 600;
         font-size: 20px;
         line-height: 24.2px;
-    }
+}
+.iconEmpty{display: flex;
+margin-top: 300px;
+    margin-bottom: 16px;
+
 }
 
-.searchButton {
-    position: relative;
-
-
+  .buttonHome{
+    width: 122px;
+    height: 40px;
   }
