@@ -55,10 +55,11 @@ const AllMovies = () => {
 
     return (
         <>
-            <Title fz="32px" fw="700" lh="150%" lts="2" m="0 10 0 10">
-                Movies
-            </Title>
-
+            {!isMobile && (
+                <Title fz="32px" fw="700" lh="150%" lts="2" m="0 10 0 10">
+                    Movies
+                </Title>
+            )}
             <Filters
                 genres={genres}
                 isGenresLoading={isGenresLoading}

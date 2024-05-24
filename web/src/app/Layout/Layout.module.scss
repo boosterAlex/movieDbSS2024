@@ -1,0 +1,17 @@
+@import 'src/style/variables/mixins.scss';
+
+.layout {
+    display: flex;
+    flex-direction: row;
+
+    @include max-md {
+        flex-direction: column;
+    }
+}
+
+.main {
+    flex: 1;
+    @include max-md {
+        max-width: 100%;
+    }
+}

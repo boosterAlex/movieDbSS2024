@@ -1,3 +1,5 @@
+@import 'src/style/variables/mixins.scss';
+
 .logo {
     color: #9854f6;
     font-weight: 600;
@@ -8,4 +10,7 @@
     height: 36px;
     justify-content: space-between;
     margin-bottom: 90px;
+    @include max-md {
+        margin-bottom: 10px;
+    }
 }

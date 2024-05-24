@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Logo } from 'src/shared/ui'
 
 import { navItems } from './navItems'
-import styles from './navbar.module.scss'
+import styles from './Navbar.module.scss'
 
 const Navbar = () => {
     const { pathname } = useLocation()
@@ -19,19 +19,21 @@ const Navbar = () => {
     return (
         <aside className={styles.wrapper}>
             <Logo />
-            {navItems.map((item) => {
-                return (
-                    <Link
-                        key={item.label}
-                        to={item.link}
-                        className={classNames(styles.navlink, {
-                            [styles.active]: isActive(item.link)
-                        })}
-                    >
-                        {item.label}
-                    </Link>
-                )
-            })}
+            <div className={styles.linksContainer}>
+                {navItems.map((item) => {
+                    return (
+                        <Link
+                            key={item.label}
+                            to={item.link}
+                            className={classNames(styles.navlink, {
+                                [styles.active]: isActive(item.link)
+                            })}
+                        >
+                            {item.label}
+                        </Link>
+                    )
+                })}
+            </div>
         </aside>
     )
 }

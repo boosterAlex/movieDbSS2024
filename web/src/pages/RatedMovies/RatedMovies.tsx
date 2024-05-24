@@ -4,6 +4,8 @@ import { MovieCard } from 'src/features'
 import { useEffect, useState } from 'react'
 import { Box, Button, Grid, Input, Pagination, Title } from '@mantine/core'
 
+import DontSuch from 'src/shared/assets/icon/DontSuch.svg'
+
 const MAX_MOVIES_ON_PAGE = 4
 
 import styles from './RatedMovies.module.scss'
@@ -67,11 +69,15 @@ const RatedMovies = () => {
                 </Title>
                 <Box className={styles.wrapperInput}>
                     <Input
+                        size="md"
+                        className={styles.input}
                         value={filter}
                         onChange={(event) => setFilter(event.target.value)}
                         placeholder="Search movie title"
                     />
                     <Button
+                        className={styles.searchButton}
+                        size="xs"
                         onClick={() => {
                             if (filter.trim() === '') {
                                 setAllMovies(
@@ -97,6 +103,14 @@ const RatedMovies = () => {
                     </Button>
                 </Box>
             </Box>
+            {allMovies.length === 0 && (
+                <Box maw="1440px" m="0 auto" className={styles.emptyData}>
+                    <DontSuch />
+                    <span style={{ marginTop: '40px' }}>
+                        We don't have such movies, look for another one
+                    </span>
+                </Box>
+            )}
             <Box className={styles.wrapperMovies}>
                 <Grid columns={2}>
                     {currentMovies.map((movie: MovieCardData) => {

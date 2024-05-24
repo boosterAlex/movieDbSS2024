@@ -34,10 +34,9 @@ main{
     flex-direction: column;
     padding: 40px 66px 40px 90px;
     @include max-sm {
-        padding: 40px 20px;
+        padding: 20px 10px;
         align-items: center;
     }
-
 }
 
 .mantine-MultiSelect-option:hover {
@@ -72,4 +71,21 @@ main{
 
 .m_dee7bd2f{
     margin: 0 auto;
+}
+
+.m_95e17d22{
+    height: 30px;
+}
+
+.mantine-NumberInput-section {
+    button {
+        border: none;
+        svg {
+            color: #ACADB9; 
+        }
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
 }

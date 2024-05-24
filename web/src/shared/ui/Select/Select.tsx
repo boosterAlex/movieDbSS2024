@@ -84,6 +84,12 @@ const Select: FC<Props> = ({
                         ) : (
                             <Input.Placeholder>{placeholder}</Input.Placeholder>
                         )}
+                        <Combobox.EventsTarget>
+                            <PillsInput.Field
+                                type="hidden"
+                                onBlur={() => combobox.closeDropdown()}
+                            />
+                        </Combobox.EventsTarget>
                     </Pill.Group>
                 </PillsInput>
             </Combobox.DropdownTarget>
