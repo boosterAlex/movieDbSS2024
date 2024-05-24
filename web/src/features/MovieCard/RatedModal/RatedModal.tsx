@@ -1,5 +1,5 @@
 import { Flex, Button, Modal, Rating, Text, Divider } from '@mantine/core'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from './RatedModal.module.scss'
 
@@ -24,6 +24,10 @@ function RatedModal({
     movieTitle
 }: Props) {
     const [value, setValue] = useState<number>(personalRating)
+
+    useEffect(() => {
+        setValue(personalRating || 1)
+    }, [personalRating])
 
     const handleSave = () => {
         try {

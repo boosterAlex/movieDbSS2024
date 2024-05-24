@@ -89,6 +89,11 @@ const RatedMovies = () => {
                     </Title>
                     <Box className={styles.wrapperInput}>
                         <Input
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                    onSearch()
+                                }
+                            }}
                             size="md"
                             className={styles.input}
                             value={filter}
