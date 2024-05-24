@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Logo } from 'src/shared/ui'
 
 import { navItems } from './navItems'
-import styles from './Navbar.module.scss'
+import styles from './Nav-bar.module.scss'
 
 const Navbar = () => {
     const { pathname } = useLocation()
