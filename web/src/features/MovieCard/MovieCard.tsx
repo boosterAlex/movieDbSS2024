@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react'
 
 import { ROUTES } from 'src/shared/consts'
 import { MovieCardData } from 'src/types'
+import { formatNumber } from 'src/pages/AllMovies/Filters/lib/helper'
 import RatingIcon from 'src/shared/assets/icon/rating'
+import NoPoster from 'src/shared/assets/icon/NoPoster.svg'
 
 import styles from './MovieCard.module.scss'
-
 import { RatedModal } from './RatedModal'
-import { formatNumber } from 'src/pages/AllMovies/Filters/lib/helper'
 
 interface Props {
     currentMovie: MovieCardData
@@ -96,11 +96,18 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
-                <img
-                    src={poster_path}
-                    alt={original_title}
-                    className={styles.poster}
-                />
+                {poster_path ? (
+                    <img
+                        src={poster_path}
+                        alt={original_title}
+                        className={styles.poster}
+                    />
+                ) : (
+                    <div className={styles.poster}>
+                        <NoPoster />
+                    </div>
+                )}
+
                 <div className={styles.generalInfo}>
                     <div className={styles.Info}>
                         <Link

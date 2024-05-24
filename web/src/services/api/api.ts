@@ -128,10 +128,7 @@ export const useMoviesQuery = ({
                             return {
                                 id: movie.id,
                                 original_title: movie.original_title,
-                                poster_path:
-                                    movie.poster_path === null
-                                        ? 'src/shared/assets/icon/NoPoster.svg'
-                                        : `${IMG_BASE_URL}${movie.poster_path}`,
+                                poster_path: `${IMG_BASE_URL}${movie.poster_path}`,
                                 release_date: movie.release_date,
                                 vote_average: movie.vote_average,
                                 vote_count: movie.vote_count,

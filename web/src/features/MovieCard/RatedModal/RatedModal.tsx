@@ -44,7 +44,7 @@ function RatedModal({
     }
 
     return (
-        <Modal.Root opened={opened} onClose={close}>
+        <Modal.Root opened={opened} onClose={close} centered>
             <Modal.Overlay />
             <Modal.Content className={styles.modalContainer}>
                 <Modal.Header className={styles.header}>

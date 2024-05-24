@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import cn from 'classnames'
-import { Divider } from '@mantine/core'
+import { Anchor, Breadcrumbs, Divider } from '@mantine/core'
 
 import { useMovieQuery } from 'src/services/api/api'
 import { IMG_BASE_URL } from 'src/services/api/constants'
@@ -19,6 +19,7 @@ import useRatedMovies from 'src/hooks/useRatedMovies'
 import { useEffect, useMemo, useState } from 'react'
 import { RatedModal } from 'src/features/MovieCard/RatedModal/index.ts'
 import { MovieCardData } from 'src/types/index.ts'
+import { ROUTES } from 'src/shared/consts'
 
 const AboutMovie = () => {
     const { id } = useParams()
@@ -103,6 +104,16 @@ const AboutMovie = () => {
     if (isLoading || isFetching) return <Spinner />
     return (
         <>
+            <Breadcrumbs>
+                {[
+                    { title: 'Movies', href: ROUTES.MAIN },
+                    { title: data?.original_title, href: '#' }
+                ].map((item, index) => (
+                    <Anchor href={item.href} key={index}>
+                        {item.title}
+                    </Anchor>
+                ))}
+            </Breadcrumbs>
             <div className={styles.container}>
                 <div className={styles.movieContainer}>
                     <div className={styles.imageContainer}>

@@ -18,8 +18,12 @@
   }
 
 .poster {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #F5F5F6;
   object-fit:contain;
+
   width: 119px;
   height: 170px;
   margin-right: 16px;
