@@ -45,7 +45,7 @@ export const useMovieQuery = (id: string | undefined) => {
             return {
                 id: data.id,
                 original_title: data.original_title,
-                poster_path: data.poster_path,
+                poster_path: `${IMG_BASE_URL}${data.poster_path}`,
                 release_date: data.release_date,
                 vote_average: data.vote_average,
                 vote_count: data.vote_count,

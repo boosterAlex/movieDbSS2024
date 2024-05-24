@@ -146,6 +146,8 @@ const MovieCard = ({ currentMovie, handleRemoveFromFavourite }: Props) => {
                 )}
             </div>
             <RatedModal
+                movieTitle={original_title}
+                removeButtonDisabled={!ratingValue}
                 open={open}
                 opened={opened}
                 close={close}

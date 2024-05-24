@@ -1,5 +1,7 @@
-import { Button, Modal, Rating } from '@mantine/core'
+import { Flex, Button, Modal, Rating, Text, Divider } from '@mantine/core'
 import { useState } from 'react'
+
+import styles from './RatedModal.module.scss'
 
 interface Props {
     opened: boolean
@@ -8,14 +10,18 @@ interface Props {
     onSave: (selectedRating: number) => void
     onRemove: () => void
     personalRating: number
+    removeButtonDisabled: boolean
+    movieTitle: string
 }
 
 function RatedModal({
+    removeButtonDisabled,
     opened,
     close,
     onSave,
     onRemove,
-    personalRating
+    personalRating,
+    movieTitle
 }: Props) {
     const [value, setValue] = useState<number>(personalRating)
 
@@ -38,22 +44,48 @@ function RatedModal({
     }
 
     return (
-        <>
-            <Modal.Root opened={opened} onClose={close}>
-                <Modal.Overlay />
-                <Modal.Content>
-                    <Modal.Header>
-                        <Modal.Title>Your rating</Modal.Title>
-                        <Modal.CloseButton />
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Rating value={value} onChange={setValue} count={10} />
-                        <Button onClick={handleSave}>Save</Button>
-                        <Button onClick={handleRemove}>Remove rating</Button>
-                    </Modal.Body>
-                </Modal.Content>
-            </Modal.Root>
-        </>
+        <Modal.Root opened={opened} onClose={close}>
+            <Modal.Overlay />
+            <Modal.Content className={styles.modalContainer}>
+                <Modal.Header className={styles.header}>
+                    <Modal.Title>Your rating</Modal.Title>
+                    <Modal.CloseButton />
+                </Modal.Header>
+                <Divider />
+                <Modal.Body>
+                    <Flex className={styles.bodyContainer}>
+                        <Text fw={700} className={styles.title}>
+                            {movieTitle}
+                        </Text>
+
+                        <Rating
+                            className={styles.rating}
+                            size="xl"
+                            value={value}
+                            onChange={setValue}
+                            count={10}
+                        />
+
+                        <Flex className={styles.buttonsContainer}>
+                            <Button
+                                className={styles.saveButton}
+                                onClick={handleSave}
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                className={styles.removeButton}
+                                variant="outline"
+                                onClick={handleRemove}
+                                disabled={removeButtonDisabled}
+                            >
+                                Remove rating
+                            </Button>
+                        </Flex>
+                    </Flex>
+                </Modal.Body>
+            </Modal.Content>
+        </Modal.Root>
     )
 }
 

@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import cn from 'classnames'
+import { Divider } from '@mantine/core'
 
 import { useMovieQuery } from 'src/services/api/api'
 import { IMG_BASE_URL } from 'src/services/api/constants'
@@ -8,11 +9,14 @@ import RatingIcon from 'src/shared/assets/icon/rating'
 
 import styles from './AboutMovie.module.scss'
 import {
+    formatCurrency,
+    formatDate,
     formatNumber,
+    formatTime,
     getYearFromDate
 } from 'src/pages/AllMovies/Filters/lib/helper.ts'
 import useRatedMovies from 'src/hooks/useRatedMovies'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { RatedModal } from 'src/features/MovieCard/RatedModal/index.ts'
 import { MovieCardData } from 'src/types/index.ts'
 
@@ -26,19 +30,22 @@ const AboutMovie = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
 
-    const OPTIONS_LIST = [
-        { label: 'Duration', value: data?.runtime },
-        { label: 'Premiere', value: data?.release_date },
-        { label: 'Budget', value: data?.budget },
-        { label: 'Gross worldwide', value: data?.revenue },
-        {
-            label: 'Genres',
-            value: data?.genres
-                ?.slice(0, 3)
-                .map((genre) => genre.name)
-                .join(', ')
-        }
-    ]
+    const OPTIONS_LIST = useMemo(
+        () => [
+            { label: 'Duration', value: formatTime(data?.runtime) },
+            { label: 'Premiere', value: formatDate(data?.release_date) },
+            { label: 'Budget', value: formatCurrency(data?.budget) },
+            { label: 'Gross worldwide', value: formatCurrency(data?.revenue) },
+            {
+                label: 'Genres',
+                value: data?.genres
+                    ?.slice(0, 3)
+                    .map((genre) => genre.name)
+                    .join(', ')
+            }
+        ],
+        [data]
+    )
 
     const handleOpenModal = () => {
         setIsModalVisible(true)
@@ -94,7 +101,6 @@ const AboutMovie = () => {
     }, [id, isMovieInRated])
 
     if (isLoading || isFetching) return <Spinner />
-
     return (
         <>
             <div className={styles.container}>
@@ -166,24 +172,58 @@ const AboutMovie = () => {
                 </div>
             </div>
 
-            {data?.trailerUrl && (
-                <div className={styles.container}>
-                    <iframe
-                        src={data.trailerUrl}
-                        title="YouTube video player"
-                        allowFullScreen
-                        style={{
-                            //поменяй стили по фигме
-                            border: '2px solid #000',
-                            borderRadius: '10px',
-                            width: '560px',
-                            height: '315px'
-                        }}
-                    />
+            <div className={cn(styles.container, styles.columnContainer)}>
+                {data?.trailerUrl && (
+                    <div className={styles.trailerContainer}>
+                        <span className={styles.infoTitle}>Trailer</span>
+                        <iframe
+                            src={data.trailerUrl}
+                            title="YouTube video player"
+                            allowFullScreen
+                            className={styles.trailer}
+                        />
+                        <Divider my="lg" className={styles.divider} />
+                    </div>
+                )}
+                <div className={styles.descriptionContainer}>
+                    <span className={styles.infoTitle}>Description</span>
+                    <div className={styles.descriptionText}>
+                        {data?.overview}
+                    </div>
+                    <Divider my="lg" className={styles.divider} />
                 </div>
-            )}
+                <div className={styles.productionContainer}>
+                    <span className={styles.infoTitle}>Production</span>
+                    <div className={styles.production}>
+                        <ul className={styles.listContainer}>
+                            {data?.production_companies.map((company) => (
+                                <li
+                                    className={styles.productionOption}
+                                    key={company.name}
+                                >
+                                    <div
+                                        key={company.id}
+                                        className={styles.company}
+                                    >
+                                        <img
+                                            src={`${IMG_BASE_URL}${company.logo_path}`}
+                                            alt={company.name}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <span className={styles.companyText}>
+                                        {company.name}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <RatedModal
+                movieTitle={data?.original_title || 'N/A'}
+                removeButtonDisabled={!isInRated}
                 open={open}
                 opened={isModalVisible}
                 close={handleCloseModal}

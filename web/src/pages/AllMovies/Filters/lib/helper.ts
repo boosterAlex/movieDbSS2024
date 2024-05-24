@@ -52,3 +52,54 @@ export const getYearFromDate = (date: string | undefined) => {
     }
     return new Date(date).getFullYear()
 }
+
+export const formatTime = (minutes: number | undefined): string => {
+    if (minutes === undefined) return 'N/A'
+
+    const hours = Math.floor(minutes / 60)
+    const remainingMinutes = minutes % 60
+
+    const hoursString = hours < 10 ? `${hours}` : `${hours}`
+    const minutesString =
+        remainingMinutes < 10 ? `0${remainingMinutes}` : `${remainingMinutes}`
+
+    return `${hoursString}h ${minutesString}m`
+}
+
+export const formatDate = (dateString: string | undefined) => {
+    if (dateString === undefined) return 'N/A'
+    const date = new Date(dateString)
+
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+
+    const day = date.getDate()
+    const month = months[date.getMonth()]
+    const year = date.getFullYear()
+
+    return `${month} ${day}, ${year}`
+}
+
+export const formatCurrency = (amount: number | undefined): string => {
+    if (amount === undefined) return 'N/A'
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0
+    })
+
+    return formatter.format(amount)
+}
