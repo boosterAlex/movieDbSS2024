@@ -10,8 +10,7 @@
 }
 
 .main {
-    flex: 1;
+    min-height: 100vh;
     @include max-md {
         max-width: 100%;
-    }
-}
+    }}

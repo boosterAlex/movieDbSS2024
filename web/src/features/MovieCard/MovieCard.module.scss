@@ -32,6 +32,9 @@
   width: 119px;
   height: 170px;
   margin-right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @include max-sm {
     margin-right: 8px;
     width: 35%;

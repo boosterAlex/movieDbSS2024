@@ -33,16 +33,14 @@
 }
 
 .emptyData {
+    margin-left: 100px;
     align-items: center;
+    justify-content: center;
     display: flex;
     flex-direction: column;
-    width: 468px;
-    height: 293px;
+    width: 668px;
+    height: 393px;
     padding-top: 50px;
-    img {
-        width: 310px;
-        padding-bottom: 16px;
-    }
     span {
         font-weight: 600;
         font-size: 20px;
