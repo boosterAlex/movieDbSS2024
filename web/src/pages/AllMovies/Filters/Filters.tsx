@@ -71,15 +71,12 @@ const Filters = ({
                     className={styles.years}
                 />
                 <NumberInput
+                    clampBehavior="strict"
                     value={filters.ratingFrom}
                     label="Rating"
                     placeholder="From"
                     min={0}
-                    max={
-                        filters.ratingTo !== ''
-                            ? Number(filters?.ratingFrom)
-                            : 10
-                    }
+                    max={10}
                     onChange={(value: number | string) => {
                         setFilters((prev) => ({
                             ...prev,
@@ -94,6 +91,7 @@ const Filters = ({
                     className={styles.ratingFrom}
                 />
                 <NumberInput
+                    clampBehavior="blur"
                     value={filters.ratingTo}
                     placeholder="To"
                     onChange={(value) => {

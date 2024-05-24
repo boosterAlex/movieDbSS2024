@@ -1,0 +1,117 @@
+.container {
+    display: flex;
+    padding: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 12px;
+    width: 800px;
+  
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+  
+  .imageContainer {
+    width: 250px;
+    height: 352px;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .movieContainer {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 116px;
+    margin-left: 24px;
+    max-width: 600px;
+  }
+  
+  .title {
+    display: block;
+    color: #9854F6;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24.16px;
+    margin-bottom: 8px;
+  }
+  
+  .year {
+    display: block;
+    color: #7B7C88;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .ratingContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .average {
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  
+  .greyText {
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #7B7C88;
+  }
+  
+  .listContainer {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .listOption {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  
+    &:last-child {
+      margin-bottom: 1px;
+    }
+  }
+  
+  .label {
+    display: block;
+    width: 140px;
+  }
+  
+  .optionValue {
+    color: #000;
+  }
+  
+  .ratingStarContainer {
+    flex-shrink: 0;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  
+    span {
+      display: block;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+  }

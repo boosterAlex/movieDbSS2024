@@ -11,6 +11,7 @@ export interface MovieCardData {
 }
 
 export interface AboutMovieData {
+    id: number
     original_title: string
     poster_path: string
     release_date: string
@@ -29,4 +30,10 @@ export interface AboutMovieData {
             origin_country: string
         }
     ]
+    videos?: {
+        results: {
+            key: string
+        }[]
+    }
+    trailerUrl: () => string | null
 }

@@ -9,6 +9,11 @@ const api = axios.create({
     baseURL: BASE_URL
 })
 
+const createYouTubeLink = (videoKey: string | undefined) => {
+    if (!videoKey) return null
+    return 'https://www.youtube.com/embed/' + videoKey
+}
+
 export const useGenresQuery = () => {
     const get = () => api.get('/genre/movie/list?language=en')
 
@@ -26,13 +31,19 @@ export const useGenresQuery = () => {
 }
 
 export const useMovieQuery = (id: string | undefined) => {
-    const get = () => api.get(`movie/${id}`)
+    const get = () =>
+        api.get(`movie/${id}`, {
+            params: {
+                append_to_response: 'videos'
+            }
+        })
 
     return useQuery({
         queryFn: get,
         queryKey: ['movie'],
         select: ({ data }: { data: AboutMovieData }) => {
             return {
+                id: data.id,
                 original_title: data.original_title,
                 poster_path: data.poster_path,
                 release_date: data.release_date,
@@ -43,7 +54,8 @@ export const useMovieQuery = (id: string | undefined) => {
                 revenue: data.revenue,
                 genres: data.genres,
                 overview: data.overview,
-                production_companies: data.production_companies
+                production_companies: data.production_companies,
+                trailerUrl: createYouTubeLink(data.videos?.results[0]?.key)
             }
         }
     })

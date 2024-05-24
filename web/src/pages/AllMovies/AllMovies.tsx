@@ -1,4 +1,4 @@
-import { Box, Grid, Pagination } from '@mantine/core'
+import { Box, em, Grid, Pagination } from '@mantine/core'
 import { Title } from '@mantine/core'
 import { useState, useEffect } from 'react'
 
@@ -16,9 +16,11 @@ import styles from './AllMovie.module.scss'
 
 import { initFormValues } from './Filters/consts'
 import { SortOptions } from 'src/types/common'
+import { useMediaQuery } from '@mantine/hooks'
 
 const AllMovies = () => {
     const { data: genres, isLoading: isGenresLoading } = useGenresQuery()
+    const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
 
     const [filters, setFilters] = useState<FiltersState>(initFormValues)
     const [sortBy, setSortBy] = useState(SortOptions.MostPopular as string)
@@ -73,12 +75,14 @@ const AllMovies = () => {
                         m="0 auto"
                         className={styles.wrapperMovies}
                     >
-                        <Grid columns={2}>
+                        <Grid>
                             {data?.movies?.map((movie: MovieCardData) => (
-                                <MovieCard
-                                    key={movie.id}
-                                    currentMovie={movie}
-                                />
+                                <Grid.Col span={isMobile ? 12 : 6}>
+                                    <MovieCard
+                                        key={movie.id}
+                                        currentMovie={movie}
+                                    />
+                                </Grid.Col>
                             ))}
                         </Grid>
                     </Box>

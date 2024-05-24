@@ -1,0 +1,16 @@
+$screen-sm: 575px;
+$screen-md: 750px;
+$screen-1g: 1115px;
+
+@mixin max-sm {
+    @media (max-width: $screen-sm) {
+     @content;}
+}
+@mixin max-md {
+    @media (max-width: $screen-md) {
+     @content;}
+}
+@mixin max-lg {
+    @media (max-width: $screen-lg) {
+     @content;}
+}

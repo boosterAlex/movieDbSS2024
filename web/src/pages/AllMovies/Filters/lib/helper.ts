@@ -45,3 +45,10 @@ export const formatNumber = (num: number | string): string => {
         return formatted + 'M'
     }
 }
+
+export const getYearFromDate = (date: string | undefined) => {
+    if (!date) {
+        return 'N/A'
+    }
+    return new Date(date).getFullYear()
+}
