@@ -32,8 +32,6 @@ const Filters = ({
         setFilters(initFormValues)
     }
 
-    console.log(typeof filters.ratingTo)
-
     return (
         <>
             <div className={styles.wrapper}>

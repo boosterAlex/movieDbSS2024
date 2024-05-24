@@ -78,11 +78,11 @@ const AllMovies = () => {
                     >
                         <Grid>
                             {data?.movies?.map((movie: MovieCardData) => (
-                                <Grid.Col span={isMobile ? 12 : 6}>
-                                    <MovieCard
-                                        key={movie.id}
-                                        currentMovie={movie}
-                                    />
+                                <Grid.Col
+                                    key={movie.id}
+                                    span={isMobile ? 12 : 6}
+                                >
+                                    <MovieCard currentMovie={movie} />
                                 </Grid.Col>
                             ))}
                         </Grid>
