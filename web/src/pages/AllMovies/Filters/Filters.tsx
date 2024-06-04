@@ -59,6 +59,7 @@ const Filters = ({
                     label="Release year"
                     optionsData={allYears}
                     selectedValue={filters.releaseYear}
+                    disabled={isGenresLoading}
                     onChange={(value) => {
                         setFilters((prev) => ({
                             ...prev,
@@ -71,6 +72,7 @@ const Filters = ({
                 <NumberInput
                     clampBehavior="strict"
                     value={filters.ratingFrom}
+                    disabled={isGenresLoading}
                     label="Rating"
                     placeholder="From"
                     min={0}
@@ -91,6 +93,7 @@ const Filters = ({
                 <NumberInput
                     clampBehavior="blur"
                     value={filters.ratingTo}
+                    disabled={isGenresLoading}
                     placeholder="To"
                     onChange={(value) => {
                         setFilters((prev) => ({
@@ -126,6 +129,7 @@ const Filters = ({
                     label="Sort by"
                     optionsData={SORTBY_VALUES}
                     selectedValue={sortBy}
+                    disabled={isGenresLoading}
                     onChange={(value) => {
                         console.log(value)
                         setSortBy(value)
